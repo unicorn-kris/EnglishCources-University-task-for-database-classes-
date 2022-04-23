@@ -15,37 +15,37 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(TransitionToTheGroup entity)
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.Add(entity);
         }
 
         public int Delete(int entityId)
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.Delete(entityId);
         }
 
         public IEnumerable<TransitionToTheGroup> GetAll()
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.GetAll();
         }
 
         public TransitionToTheGroup GetById(int entityId)
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.GetById(entityId);
         }
 
         public IEnumerable<TransitionToTheGroup> GetTransitionToTheGroupsByGroup(int groupId)
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.GetTransitionToTheGroupsByGroup(groupId);
         }
 
         public IEnumerable<TransitionToTheGroup> SortedTransitionToTheGroupsByDate()
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.SortedTransitionToTheGroupsByDate();
         }
 
         public int Update(int entityId, TransitionToTheGroup newEntity)
         {
-            throw new NotImplementedException();
+            return _transitionToTheGroupRepository.Update(entityId, newEntity);
         }
     }
 }

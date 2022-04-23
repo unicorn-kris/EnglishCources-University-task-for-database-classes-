@@ -15,32 +15,32 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(EnglishLevel entity)
         {
-            throw new NotImplementedException();
+            return _englishLevelRepository.Add(entity);    
         }
 
         public int Delete(int entityId)
         {
-            throw new NotImplementedException();
+            return _englishLevelRepository.Delete(entityId);
         }
 
         public IEnumerable<EnglishLevel> GetAll()
         {
-            throw new NotImplementedException();
+            return _englishLevelRepository.GetAll();
         }
 
         public EnglishLevel GetById(int entityId)
         {
-            throw new NotImplementedException();
+            return _englishLevelRepository.GetById(entityId);
         }
 
         public IEnumerable<EnglishLevel> SortedEnglishLevels()
         {
-            throw new NotImplementedException();
+            return _englishLevelRepository.SortedEnglishLevels();
         }
 
         public int Update(int entityId, EnglishLevel newEntity)
         {
-            throw new NotImplementedException();
+            return _englishLevelRepository.Update(entityId, newEntity);
         }
     }
 }

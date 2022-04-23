@@ -15,37 +15,37 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(Exam entity)
         {
-            throw new NotImplementedException();
+            _examRepository.Add(entity);
         }
 
         public int Delete(int entityId)
         {
-            throw new NotImplementedException();
+            _examRepository.Delete(entityId);
         }
 
         public IEnumerable<Exam> GetAll()
         {
-            throw new NotImplementedException();
+            return _examRepository.GetAll();
         }
 
         public Exam GetById(int entityId)
         {
-            throw new NotImplementedException();
+            return _examRepository.GetById(entityId);   
         }
 
         public IEnumerable<Exam> GetExamsByDay(DateTime day)
         {
-            throw new NotImplementedException();
+            return _examRepository.GetExamsByDay(day);
         }
 
         public IEnumerable<Exam> GetExamsByGroup(int groupId)
         {
-            throw new NotImplementedException();
+            return _examRepository.GetExamsByGroup(groupId);
         }
 
         public int Update(int entityId, Exam newEntity)
         {
-            throw new NotImplementedException();
+            return _examRepository.Update(entityId, newEntity);
         }
     }
 }

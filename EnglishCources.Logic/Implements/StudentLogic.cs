@@ -15,37 +15,37 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(Student entity)
         {
-            throw new NotImplementedException();
+            return _studentRepository.Add(entity);
         }
 
         public int Delete(int entityId)
         {
-            throw new NotImplementedException();
+            return _studentRepository.Delete(entityId);
         }
 
         public IEnumerable<Student> GetAll()
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetAll();
         }
 
         public Student GetById(int entityId)
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetById(entityId);
         }
 
         public IEnumerable<Student> GetStudentsByGroup(int groupId)
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetStudentsByGroup(groupId);
         }
 
         public IEnumerable<Student> GetStudentsByLevel(int levelId)
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetStudentsByLevel(levelId);
         }
 
         public int Update(int entityId, Student newEntity)
         {
-            throw new NotImplementedException();
+            return _studentRepository.Update(entityId, newEntity);
         }
     }
 }

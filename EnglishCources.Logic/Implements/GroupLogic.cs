@@ -15,37 +15,37 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(Group entity)
         {
-            throw new NotImplementedException();
+            return _groupRepository.Add(entity);   
         }
 
         public int Delete(int entityId)
         {
-            throw new NotImplementedException();
+            return _groupRepository.Delete(entityId);
         }
 
         public IEnumerable<Group> GetAll()
         {
-            throw new NotImplementedException();
+            return _groupRepository.GetAll();
         }
 
         public Group GetById(int entityId)
         {
-            throw new NotImplementedException();
+            return _groupRepository.GetById(entityId);
         }
 
         public Group GetGroupByNumber(int groupNumber)
         {
-            throw new NotImplementedException();
+            return _groupRepository.GetGroupByNumber(groupNumber);
         }
 
         public IEnumerable<Group> GetGroupsByLevel(int englishLevel)
         {
-            throw new NotImplementedException();
+            return _groupRepository.GetGroupsByLevel(englishLevel);
         }
 
         public int Update(int entityId, Group newEntity)
         {
-            throw new NotImplementedException();
+            return _groupRepository.Update(entityId, newEntity);
         }
     }
 }

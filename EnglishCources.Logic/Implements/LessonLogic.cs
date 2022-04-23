@@ -15,37 +15,37 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(Lesson entity)
         {
-            throw new NotImplementedException();
+            return _lessonRepository.Add(entity);   
         }
 
         public int Delete(int entityId)
         {
-            throw new NotImplementedException();
+            return _lessonRepository.Delete(entityId);
         }
 
         public IEnumerable<Lesson> GetAll()
         {
-            throw new NotImplementedException();
+            return _lessonRepository.GetAll();
         }
 
         public Lesson GetById(int entityId)
         {
-            throw new NotImplementedException();
+            return _lessonRepository.GetById(entityId);
         }
 
         public IEnumerable<Lesson> GetLessonsByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            return _lessonRepository.GetLessonsByDate(date);
         }
 
         public IEnumerable<Lesson> GetLessonsByGroup(int groupId)
         {
-            throw new NotImplementedException();
+            return _lessonRepository.GetLessonsByGroup(groupId);
         }
 
         public int Update(int entityId, Lesson newEntity)
         {
-            throw new NotImplementedException();
+            return _lessonRepository.Update(entityId, newEntity);
         }
     }
 }

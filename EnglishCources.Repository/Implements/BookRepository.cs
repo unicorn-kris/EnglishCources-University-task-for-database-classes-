@@ -1,13 +1,53 @@
 ﻿using EnglishCources.Common;
 using EnglishCources.Repository.Contracts;
+using EnglishCources.Repository.Exceptions;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace EnglishCources.Repository.Implements
 {
     internal class BookRepository : IBookRepository
     {
+        private readonly string _connectionString;
+
+        public BookRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         public int Add(Book entity)
         {
-            throw new NotImplementedException();
+            var addedBookId = -1;
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "AddBook";
+                cmd.Parameters.AddWithValue("Title", entity.Title);
+                cmd.Parameters.AddWithValue("Author", entity.Author);
+                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel);
+
+                var id = new SqlParameter
+                {
+                    DbType = DbType.Int32,
+                    ParameterName = "ID",
+                    Direction = ParameterDirection.Output
+                };
+                cmd.Parameters.Add(id);
+
+                connection.Open();
+
+                if (cmd.ExecuteNonQuery() >= 1)
+                {
+                    addedBookId = int.Parse(cmd.ExecuteScalar().ToString());
+                }
+                else
+                {
+                    throw new IncorrectDataException();
+                }
+            }
+            return addedBookId;
         }
 
         public int Delete(int entityId)

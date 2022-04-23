@@ -75,9 +75,25 @@ namespace EnglishCources.Repository.Implements
             throw new NotImplementedException();
         }
 
-        public int Update(int entityId, TransitionToTheLevel newEntity)
+        public void Update(int entityId, TransitionToTheLevel newEntity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "UpdateTransitionToTheLevel";
+                cmd.Parameters.AddWithValue("Id", entityId);
+                cmd.Parameters.AddWithValue("Student", newEntity.Student);
+                cmd.Parameters.AddWithValue("Date", newEntity.Date);
+                cmd.Parameters.AddWithValue("LevelNew", newEntity.LevelNew);
+
+                connection.Open();
+
+                if (cmd.ExecuteNonQuery() != 1)
+                {
+                    throw new IncorrectIdException();
+                }
+            }
         }
     }
 }

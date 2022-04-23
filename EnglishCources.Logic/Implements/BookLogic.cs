@@ -38,9 +38,9 @@ namespace EnglishCources.Logic.Implements
             return _bookRepository.GetById(entityId);
         }
 
-        public int Update(int entityId, Book newEntity)
+        public void Update(int entityId, Book newEntity)
         {
-            return _bookRepository.Update(entityId, newEntity);
+            _bookRepository.Update(entityId, newEntity);
         }
     }
 }

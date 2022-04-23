@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _groupRepository.GetGroupsByLevel(englishLevel);
         }
 
-        public int Update(int entityId, Group newEntity)
+        public void Update(int entityId, Group newEntity)
         {
-            return _groupRepository.Update(entityId, newEntity);
+            _groupRepository.Update(entityId, newEntity);
         }
     }
 }

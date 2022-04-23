@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _transitionToTheGroupRepository.SortedTransitionToTheGroupsByDate();
         }
 
-        public int Update(int entityId, TransitionToTheGroup newEntity)
+        public void Update(int entityId, TransitionToTheGroup newEntity)
         {
-            return _transitionToTheGroupRepository.Update(entityId, newEntity);
+            _transitionToTheGroupRepository.Update(entityId, newEntity);
         }
     }
 }

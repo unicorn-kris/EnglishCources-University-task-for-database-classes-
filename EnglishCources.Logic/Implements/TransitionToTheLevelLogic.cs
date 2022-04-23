@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _transitionToTheLevelRepository.SortedTransitionToTheLevelsByDate();
         }
 
-        public int Update(int entityId, TransitionToTheLevel newEntity)
+        public void Update(int entityId, TransitionToTheLevel newEntity)
         {
-            return _transitionToTheLevelRepository.Update(entityId, newEntity); 
+            _transitionToTheLevelRepository.Update(entityId, newEntity); 
         }
     }
 }

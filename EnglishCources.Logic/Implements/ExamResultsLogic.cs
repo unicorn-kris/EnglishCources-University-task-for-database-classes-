@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _examResultsRepository.GetExamResultsByStudent(studentId);
         }
 
-        public int Update(int entityId, ExamResults newEntity)
+        public void Update(int entityId, ExamResults newEntity)
         {
-            return _examResultsRepository.Update(entityId, newEntity); 
+            _examResultsRepository.Update(entityId, newEntity); 
         }
     }
 }

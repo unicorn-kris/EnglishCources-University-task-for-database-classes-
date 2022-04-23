@@ -15,12 +15,12 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(Exam entity)
         {
-            _examRepository.Add(entity);
+            return _examRepository.Add(entity);
         }
 
         public int Delete(int entityId)
         {
-            _examRepository.Delete(entityId);
+            return _examRepository.Delete(entityId);
         }
 
         public IEnumerable<Exam> GetAll()
@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _examRepository.GetExamsByGroup(groupId);
         }
 
-        public int Update(int entityId, Exam newEntity)
+        public void Update(int entityId, Exam newEntity)
         {
-            return _examRepository.Update(entityId, newEntity);
+            _examRepository.Update(entityId, newEntity);
         }
     }
 }

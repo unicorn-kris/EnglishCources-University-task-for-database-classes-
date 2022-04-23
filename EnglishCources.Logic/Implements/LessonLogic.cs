@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _lessonRepository.GetLessonsByGroup(groupId);
         }
 
-        public int Update(int entityId, Lesson newEntity)
+        public void Update(int entityId, Lesson newEntity)
         {
-            return _lessonRepository.Update(entityId, newEntity);
+            _lessonRepository.Update(entityId, newEntity);
         }
     }
 }

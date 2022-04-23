@@ -76,9 +76,26 @@ namespace EnglishCources.Repository.Implements
             throw new NotImplementedException();
         }
 
-        public int Update(int entityId, Lesson newEntity)
+        public void Update(int entityId, Lesson newEntity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "UpdateLesson";
+                cmd.Parameters.AddWithValue("Id", entityId);
+                cmd.Parameters.AddWithValue("Book", newEntity.Book);
+                cmd.Parameters.AddWithValue("Day", newEntity.Day);
+                cmd.Parameters.AddWithValue("Hour", newEntity.Hour);
+                cmd.Parameters.AddWithValue("Group", newEntity.Group);
+
+                connection.Open();
+
+                if (cmd.ExecuteNonQuery() != 1)
+                {
+                    throw new IncorrectIdException();
+                }
+            }
         }
     }
 }

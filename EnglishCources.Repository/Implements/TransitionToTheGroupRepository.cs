@@ -75,9 +75,25 @@ namespace EnglishCources.Repository.Implements
             throw new NotImplementedException();
         }
 
-        public int Update(int entityId, TransitionToTheGroup newEntity)
+        public void Update(int entityId, TransitionToTheGroup newEntity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "UpdateTransitionToTheGroup";
+                cmd.Parameters.AddWithValue("Id", entityId);
+                cmd.Parameters.AddWithValue("Student", newEntity.Student);
+                cmd.Parameters.AddWithValue("Date", newEntity.Date);
+                cmd.Parameters.AddWithValue("GroupNew", newEntity.GroupNew);
+
+                connection.Open();
+
+                if (cmd.ExecuteNonQuery() != 1)
+                {
+                    throw new IncorrectIdException();
+                }
+            }
         }
     }
 }

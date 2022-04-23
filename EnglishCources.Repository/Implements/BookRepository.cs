@@ -17,7 +17,7 @@ namespace EnglishCources.Repository.Implements
 
         public int Add(Book entity)
         {
-            var addedBookId = -1;
+            var addedEntityId = -1;
 
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -40,14 +40,14 @@ namespace EnglishCources.Repository.Implements
 
                 if (cmd.ExecuteNonQuery() >= 1)
                 {
-                    addedBookId = int.Parse(cmd.ExecuteScalar().ToString());
+                    addedEntityId = int.Parse(cmd.ExecuteScalar().ToString());
                 }
                 else
                 {
                     throw new IncorrectDataException();
                 }
             }
-            return addedBookId;
+            return addedEntityId;
         }
 
         public int Delete(int entityId)
@@ -70,9 +70,25 @@ namespace EnglishCources.Repository.Implements
             throw new NotImplementedException();
         }
 
-        public int Update(int entityId, Book newEntity)
+        public void Update(int entityId, Book newEntity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "UpdateBook";
+                cmd.Parameters.AddWithValue("Id", entityId);
+                cmd.Parameters.AddWithValue("Title", newEntity.Title);
+                cmd.Parameters.AddWithValue("Author", newEntity.Author);
+                cmd.Parameters.AddWithValue("EnglishLevel", newEntity.EnglishLevel);
+
+                connection.Open();
+
+                if (cmd.ExecuteNonQuery() != 1)
+                {
+                    throw new IncorrectIdException();
+                }
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace EnglishCources.Logic.Implements
 
         public int Add(EnglishLevel entity)
         {
-            return _englishLevelRepository.Add(entity);    
+            return _englishLevelRepository.Add(entity);
         }
 
         public int Delete(int entityId)
@@ -38,9 +38,9 @@ namespace EnglishCources.Logic.Implements
             return _englishLevelRepository.SortedEnglishLevels();
         }
 
-        public int Update(int entityId, EnglishLevel newEntity)
+        public void Update(int entityId, EnglishLevel newEntity)
         {
-            return _englishLevelRepository.Update(entityId, newEntity);
+            _englishLevelRepository.Update(entityId, newEntity);
         }
     }
 }

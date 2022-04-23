@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _studentRepository.GetStudentsByLevel(levelId);
         }
 
-        public int Update(int entityId, Student newEntity)
+        public void Update(int entityId, Student newEntity)
         {
-            return _studentRepository.Update(entityId, newEntity);
+            _studentRepository.Update(entityId, newEntity);
         }
     }
 }

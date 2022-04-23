@@ -43,9 +43,9 @@ namespace EnglishCources.Logic.Implements
             return _teacherRepository.SortedTeachersByExperience();
         }
 
-        public int Update(int entityId, Teacher newEntity)
+        public void Update(int entityId, Teacher newEntity)
         {
-            return _teacherRepository.Update(entityId, newEntity);  
+            _teacherRepository.Update(entityId, newEntity);  
         }
     }
 }

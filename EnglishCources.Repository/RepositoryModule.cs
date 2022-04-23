@@ -6,6 +6,7 @@ namespace EnglishCources.Repository
 {
     public class RepositoryModule : Module
     {
+        public string ConnectionString { get; set; }
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<BookRepository>().As<IBookRepository>().SingleInstance();

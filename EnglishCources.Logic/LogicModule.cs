@@ -2,6 +2,7 @@
 using EnglishCources.Logic.Contracts;
 using EnglishCources.Logic.Implements;
 using EnglishCources.Repository;
+using System.Configuration;
 
 namespace EnglishCources.Logic
 {
@@ -20,7 +21,8 @@ namespace EnglishCources.Logic
             builder.RegisterType<TransitionToTheGroupLogic>().As<ITransitionToTheGroupLogic>().SingleInstance();
             builder.RegisterType<TransitionToTheLevelLogic>().As<ITransitionToTheLevelLogic>().SingleInstance();
 
-            builder.RegisterModule<RepositoryModule>();
+            builder.RegisterModule(new RepositoryModule {
+                ConnectionString = ConfigurationManager.ConnectionStrings["EnglishCourses"].ConnectionString});
         }
     }
 }

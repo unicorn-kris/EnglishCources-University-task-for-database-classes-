@@ -18,9 +18,9 @@ namespace EnglishCources.Logic.Implements
             return _transitionToTheLevelRepository.Add(entity);
         }
 
-        public int Delete(int entityId)
+        public void Delete(int entityId)
         {
-            return _transitionToTheLevelRepository.Delete(entityId);
+            _transitionToTheLevelRepository.Delete(entityId);
         }
 
         public IEnumerable<TransitionToTheLevel> GetAll()

@@ -18,9 +18,9 @@ namespace EnglishCources.Logic.Implements
             return _teacherRepository.Add(entity);
         }
 
-        public int Delete(int entityId)
+        public void Delete(int entityId)
         {
-            return _teacherRepository.Delete(entityId);
+            _teacherRepository.Delete(entityId);
         }
 
         public IEnumerable<Teacher> GetAll()

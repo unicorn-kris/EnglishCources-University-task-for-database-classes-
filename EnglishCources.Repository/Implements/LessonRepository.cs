@@ -51,9 +51,22 @@ namespace EnglishCources.Repository.Implements
             return addedEntityId;
         }
 
-        public int Delete(int entityId)
+        public void Delete(int entityId)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "DeleteLesson";
+                cmd.Parameters.AddWithValue("Id", entityId);
+
+                connection.Open();
+
+                if (cmd.ExecuteNonQuery() != 1)
+                {
+                    throw new IncorrectIdException();
+                }
+            }
         }
 
         public IEnumerable<Lesson> GetAll()

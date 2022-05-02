@@ -2,8 +2,8 @@
 
 namespace EnglishCources.Logic.Contracts
 {
-    public interface IBookLogic: IEntityLogic<Book>
+    public interface IBookLogic : IEntityLogic<Book>
     {
-        Book GetBookByLevel(int englishLevel);
+        IEnumerable<Book> GetBooksByLevel(int englishLevel);
     }
 }

@@ -71,22 +71,95 @@ namespace EnglishCources.Repository.Implements
 
         public IEnumerable<Teacher> GetAll()
         {
-            throw new NotImplementedException();
+            List<Teacher> teachers = new List<Teacher>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectAllTeachers";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        teachers.Add(new Teacher()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("SurName"),
+                            Age = reader.GetInt32("Age"),
+                            Experience = reader.GetInt32("Experience")
+                        });
+
+                    }
+
+                }
+            }
+            return teachers;
         }
 
         public Teacher GetById(int entityId)
         {
-            throw new NotImplementedException();
-        }
 
-        public IEnumerable<Teacher> GetTeachersByLevel(int levelId)
-        {
-            throw new NotImplementedException();
+            Teacher teacher = new Teacher();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectTeacherById";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        teacher.ID = reader.GetInt32("Id");
+                        teacher.Name = reader.GetString("Name");
+                        teacher.Surname = reader.GetString("SurName");
+                        teacher.Age = reader.GetInt32("Age");
+                        teacher.Experience = reader.GetInt32("Experience");
+                    }
+
+                }
+            }
+            return teacher;
         }
 
         public IEnumerable<Teacher> SortedTeachersByExperience()
         {
-            throw new NotImplementedException();
+            List<Teacher> teachers = new List<Teacher>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SortTeachersByExperience";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        teachers.Add(new Teacher()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("SurName"),
+                            Age = reader.GetInt32("Age"),
+                            Experience = reader.GetInt32("Experience")
+                        });
+
+                    }
+
+                }
+            }
+            return teachers;
         }
 
         public void Update(int entityId, Teacher newEntity)

@@ -70,22 +70,244 @@ namespace EnglishCources.Repository.Implements
 
         public IEnumerable<TransitionToTheGroup> GetAll()
         {
-            throw new NotImplementedException();
+            List<TransitionToTheGroup> transitions = new List<TransitionToTheGroup>();
+            
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectAllTransitionsToTheGroup";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        transitions.Add(new TransitionToTheGroup()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Date = reader.GetDateTime("Date")
+                        });
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Group group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+
+                        if (transition != null)
+                        {
+                            transition.GroupNew = group;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Student student = new Student()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname")
+                        };
+
+                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+
+                        if (transition != null)
+                        {
+                            transition.Student = student;
+                        }
+                    }
+                }
+            }
+            return transitions;
         }
 
         public TransitionToTheGroup GetById(int entityId)
         {
-            throw new NotImplementedException();
+            TransitionToTheGroup transition = new TransitionToTheGroup();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectTransitionToTheGroupById";
+                cmd.Parameters.AddWithValue("Id", entityId);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        transition.ID = reader.GetInt32("Id");
+                        transition.Date = reader.GetDateTime("Date");
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        transition.GroupNew = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        transition.Student = new Student()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname")
+                        };
+                    }
+                }
+            }
+            return transition;
         }
 
         public IEnumerable<TransitionToTheGroup> GetTransitionToTheGroupsByGroup(int groupId)
         {
-            throw new NotImplementedException();
+            List<TransitionToTheGroup> transitions = new List<TransitionToTheGroup>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectTransitionsToTheGroupByGroup";
+                cmd.Parameters.AddWithValue("GroupId", groupId);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        transitions.Add(new TransitionToTheGroup()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Date = reader.GetDateTime("Date")
+                        });
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Group group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+
+                        if (transition != null)
+                        {
+                            transition.GroupNew = group;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Student student = new Student()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname")
+                        };
+
+                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+
+                        if (transition != null)
+                        {
+                            transition.Student = student;
+                        }
+                    }
+                }
+            }
+            return transitions;
         }
 
         public IEnumerable<TransitionToTheGroup> SortedTransitionToTheGroupsByDate()
         {
-            throw new NotImplementedException();
+            List<TransitionToTheGroup> transitions = new List<TransitionToTheGroup>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SortTransitionsToTheGroupByDate";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        transitions.Add(new TransitionToTheGroup()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Date = reader.GetDateTime("Date")
+                        });
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Group group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        var exRes = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+
+                        if (exRes != null)
+                        {
+                            exRes.GroupNew = group;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Student student = new Student()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname")
+                        };
+
+                        var exRes = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+
+                        if (exRes != null)
+                        {
+                            exRes.Student = student;
+                        }
+                    }
+                }
+            }
+            return transitions;
         }
 
         public void Update(int entityId, TransitionToTheGroup newEntity)

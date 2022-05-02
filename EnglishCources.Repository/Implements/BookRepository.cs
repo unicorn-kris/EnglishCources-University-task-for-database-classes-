@@ -70,17 +70,135 @@ namespace EnglishCources.Repository.Implements
 
         public IEnumerable<Book> GetAll()
         {
-            throw new NotImplementedException();
+            List<Book> books = new List<Book>();
+
+            using(var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectAllBooks";
+                
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        books.Add(new Book() { ID = (int)reader["Id"],
+                        Author = reader["Author"].ToString(),
+                        Title = reader["Title"].ToString()});
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel level = new EnglishLevel();
+
+                        level.ID = (int)reader["Id"];
+                        level.Number = (int)reader["Number"];
+                        level.Letter = (string)reader["Letter"];
+                        int bookId = (int)reader["BookId"];
+
+                        Book book = books.FirstOrDefault(b => b.ID == bookId);
+
+                        if (book != null)
+                        {
+                            book.EnglishLevel = level;
+                        }
+                    }
+                }
+            }
+            return books;
         }
 
-        public Book GetBookByLevel(int englishLevel)
+        public IEnumerable<Book> GetBooksByLevel(int englishLevel)
         {
-            throw new NotImplementedException();
+            List<Book> books = new List<Book>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectBooksByLevel";
+                cmd.Parameters.AddWithValue("EnglishLevel", englishLevel);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        books.Add(new Book()
+                        {
+                            ID = (int)reader["Id"],
+                            Author = reader["Author"].ToString(),
+                            Title = reader["Title"].ToString()
+                        });
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel level = new EnglishLevel();
+
+                        level.ID = (int)reader["Id"];
+                        level.Number = (int)reader["Number"];
+                        level.Letter = (string)reader["Letter"];
+                        int bookId = (int)reader["BookId"];
+
+                        Book book = books.FirstOrDefault(b => b.ID == bookId);
+
+                        if (book != null)
+                        {
+                            book.EnglishLevel = level;
+                        }
+                    }
+                }
+            }
+            return books;
         }
 
         public Book GetById(int entityId)
         {
-            throw new NotImplementedException();
+            Book book = new Book();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectBookById";
+                cmd.Parameters.AddWithValue("Id", entityId);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+                        book.ID = (int)reader["Id"];
+                        book.Author = reader["Author"].ToString();
+                        book.Title = reader["Title"].ToString();
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel level = new EnglishLevel();
+
+                        level.ID = (int)reader["Id"];
+                        level.Number = (int)reader["Number"];
+                        level.Letter = (string)reader["Letter"];
+                        int bookId = (int)reader["BookId"];
+
+                        book.EnglishLevel = level;
+                    }
+                }
+            }
+            return book;
         }
 
         public void Update(int entityId, Book newEntity)

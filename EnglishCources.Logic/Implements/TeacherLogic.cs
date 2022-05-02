@@ -33,11 +33,6 @@ namespace EnglishCources.Logic.Implements
             return _teacherRepository.GetById(entityId);
         }
 
-        public IEnumerable<Teacher> GetTeachersByLevel(int levelId)
-        {
-            return _teacherRepository.GetTeachersByLevel(levelId);
-        }
-
         public IEnumerable<Teacher> SortedTeachersByExperience()
         {
             return _teacherRepository.SortedTeachersByExperience();

@@ -71,22 +71,391 @@ namespace EnglishCources.Repository.Implements
 
         public IEnumerable<Lesson> GetAll()
         {
-            throw new NotImplementedException();
+            List<Lesson> lessons = new List<Lesson>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectAllLessons";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lessons.Add(new Lesson()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Day = reader.GetDateTime("Day"),
+                            Hour = reader.GetInt32("Hour")
+                        });
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Group group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Group = group;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Group.MinLevel = englishLevel;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Book book = new Book()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Author = reader.GetString("Author"),
+                            Title = reader.GetString("Title")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Book = book;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Book.EnglishLevel = englishLevel;
+                        }
+                    }
+                }
+            }
+            return lessons;
         }
 
         public Lesson GetById(int entityId)
         {
-            throw new NotImplementedException();
+
+            Lesson lesson = new Lesson();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectLessonById";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lesson.ID = reader.GetInt32("Id");
+                        lesson.Day = reader.GetDateTime("Day");
+                        lesson.Hour = reader.GetInt32("Hour");
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        lesson.Group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        lesson.Group.MinLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        lesson.Book = new Book()
+                        {
+                            ID = reader.GetInt32("BookId"),
+                            Author = reader.GetString("Author"),
+                            Title = reader.GetString("Title")
+                        };
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        lesson.Book.EnglishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+                    }
+                }
+            }
+            return lesson;
         }
 
         public IEnumerable<Lesson> GetLessonsByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            List<Lesson> lessons = new List<Lesson>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectLessonsByDate";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lessons.Add(new Lesson()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Day = reader.GetDateTime("Day"),
+                            Hour = reader.GetInt32("Hour")
+                        });
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Group group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Group = group;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Group.MinLevel = englishLevel;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Book book = new Book()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Author = reader.GetString("Author"),
+                            Title = reader.GetString("Title")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Book = book;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Book.EnglishLevel = englishLevel;
+                        }
+                    }
+                }
+            }
+            return lessons;
         }
 
         public IEnumerable<Lesson> GetLessonsByGroup(int groupId)
         {
-            throw new NotImplementedException();
+            List<Lesson> lessons = new List<Lesson>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectLessonsByGroup";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lessons.Add(new Lesson()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Day = reader.GetDateTime("Day"),
+                            Hour = reader.GetInt32("Hour")
+                        });
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Group group = new Group()
+                        {
+                            ID = reader.GetInt32("GroupId"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Group = group;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Group.MinLevel = englishLevel;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Book book = new Book()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Author = reader.GetString("Author"),
+                            Title = reader.GetString("Title")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Book = book;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("EnglishLevelId"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        };
+
+                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+
+                        if (lesson != null)
+                        {
+                            lesson.Book.EnglishLevel = englishLevel;
+                        }
+                    }
+                }
+            }
+            return lessons;
         }
 
         public void Update(int entityId, Lesson newEntity)

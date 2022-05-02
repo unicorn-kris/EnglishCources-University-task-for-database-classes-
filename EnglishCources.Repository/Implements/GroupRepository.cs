@@ -70,22 +70,245 @@ namespace EnglishCources.Repository.Implements
 
         public IEnumerable<Group> GetAll()
         {
-            throw new NotImplementedException();
+            List<Group> groups = new List<Group>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectAllGroups";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        groups.Add(new Group()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Number = reader.GetInt32("Number")
+                        });
+                        
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Teacher teacher = new Teacher()
+                        {
+                            ID = reader.GetInt32("TeacherId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname"),
+                            Age = reader.GetInt32("Age"),
+                            Experience = reader.GetInt32("Experience")
+                        };
+
+                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+
+                        if (group != null)
+                        {
+                            group.Teacher = teacher;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Letter = reader.GetString("Letter"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+
+                        if (group != null)
+                        {
+                            group.MinLevel = englishLevel;
+                        }
+                    }
+                }
+            }
+            return groups;
         }
 
         public Group GetById(int entityId)
         {
-            throw new NotImplementedException();
+            Group group = new Group();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectGroupById";
+                cmd.Parameters.AddWithValue("Id", entityId);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        group.ID = reader.GetInt32("Id");
+                        group.Number = reader.GetInt32("Number");
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                         group.Teacher = new Teacher()
+                        {
+                            ID = reader.GetInt32("TeacherId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname"),
+                            Age = reader.GetInt32("Age"),
+                            Experience = reader.GetInt32("Experience")
+                        };
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        group.MinLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Letter = reader.GetString("Letter"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                    }
+                }
+            }
+            return group;
         }
 
         public Group GetGroupByNumber(int groupNumber)
         {
-            throw new NotImplementedException();
+            Group group = new Group();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectGroupByNumber";
+                cmd.Parameters.AddWithValue("Number", groupNumber);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        group.ID = reader.GetInt32("Id");
+                        group.Number = reader.GetInt32("Number");
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        group.Teacher = new Teacher()
+                        {
+                            ID = reader.GetInt32("TeacherId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname"),
+                            Age = reader.GetInt32("Age"),
+                            Experience = reader.GetInt32("Experience")
+                        };
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        group.MinLevel = new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("StudentId"),
+                            Letter = reader.GetString("Letter"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                    }
+                }
+            }
+            return group;
         }
 
         public IEnumerable<Group> GetGroupsByLevel(int englishLevel)
         {
-            throw new NotImplementedException();
+            List<Group> groups = new List<Group>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectGroupsByLevel";
+                cmd.Parameters.AddWithValue("EnglishLevel", englishLevel);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        groups.Add(new Group()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Number = reader.GetInt32("Number")
+                        });
+
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        Teacher teacher = new Teacher()
+                        {
+                            ID = reader.GetInt32("TeacherId"),
+                            Name = reader.GetString("Name"),
+                            Surname = reader.GetString("Surname"),
+                            Age = reader.GetInt32("Age"),
+                            Experience = reader.GetInt32("Experience")
+                        };
+
+                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+
+                        if (group != null)
+                        {
+                            group.Teacher = teacher;
+                        }
+                    }
+
+                    reader.NextResult();
+
+                    while (reader.Read())
+                    {
+                        EnglishLevel englishLevelAdded = new EnglishLevel()
+                        {
+                            ID = englishLevel,
+                            Letter = reader.GetString("Letter"),
+                            Number = reader.GetInt32("Number")
+                        };
+
+                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+
+                        if (group != null)
+                        {
+                            group.MinLevel = englishLevelAdded;
+                        }
+                    }
+                }
+            }
+            return groups;
         }
 
         public void Update(int entityId, Group newEntity)

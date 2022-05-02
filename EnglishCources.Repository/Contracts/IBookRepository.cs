@@ -2,8 +2,8 @@
 
 namespace EnglishCources.Repository.Contracts
 {
-    public interface IBookRepository: IEntityRepository<Book>
+    public interface IBookRepository : IEntityRepository<Book>
     {
-        Book GetBookByLevel(int englishLevel);
+        IEnumerable<Book> GetBooksByLevel(int englishLevel);
     }
 }

@@ -28,9 +28,9 @@ namespace EnglishCources.Logic.Implements
             return _bookRepository.GetAll();
         }
 
-        public Book GetBookByLevel(int englishLevel)
+        public IEnumerable<Book> GetBooksByLevel(int englishLevel)
         {
-            return _bookRepository.GetBookByLevel(englishLevel);
+            return _bookRepository.GetBooksByLevel(englishLevel);
         }
 
         public Book GetById(int entityId)

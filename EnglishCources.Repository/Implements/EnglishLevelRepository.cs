@@ -69,17 +69,87 @@ namespace EnglishCources.Repository.Implements
 
         public IEnumerable<EnglishLevel> GetAll()
         {
-            throw new NotImplementedException();
+            List<EnglishLevel> englishLevels = new List<EnglishLevel>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectAllEnglishLevels";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        englishLevels.Add(new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        });
+                    }
+                }
+            }
+
+            return englishLevels;
         }
 
         public EnglishLevel GetById(int entityId)
         {
-            throw new NotImplementedException();
+            EnglishLevel englishLevel = new EnglishLevel();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SelectEnglishLevelById";
+                cmd.Parameters.AddWithValue("Id", entityId);
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        englishLevel.ID = reader.GetInt32("Id");
+                        englishLevel.Number = reader.GetInt32("Number");
+                        englishLevel.Letter = reader.GetString("Letter");
+                    }
+                }
+            }
+
+            return englishLevel;
         }
 
         public IEnumerable<EnglishLevel> SortedEnglishLevels()
         {
-            throw new NotImplementedException();
+            List<EnglishLevel> englishLevels = new List<EnglishLevel>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var cmd = connection.CreateCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "SortEnglishLevels";
+
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        englishLevels.Add(new EnglishLevel()
+                        {
+                            ID = reader.GetInt32("Id"),
+                            Number = reader.GetInt32("Number"),
+                            Letter = reader.GetString("Letter")
+                        });
+                    }
+                }
+            }
+
+            return englishLevels;
         }
 
         public void Update(int entityId, EnglishLevel newEntity)

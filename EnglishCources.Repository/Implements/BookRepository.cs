@@ -61,7 +61,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }
@@ -192,7 +192,6 @@ namespace EnglishCources.Repository.Implements
                         level.ID = (int)reader["Id"];
                         level.Number = (int)reader["Number"];
                         level.Letter = (string)reader["Letter"];
-                        int bookId = (int)reader["BookId"];
 
                         book.EnglishLevel = level;
                     }
@@ -215,7 +214,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }

@@ -61,7 +61,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }
@@ -327,7 +327,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }

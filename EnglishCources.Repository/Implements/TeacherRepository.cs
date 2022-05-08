@@ -62,7 +62,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }
@@ -89,7 +89,7 @@ namespace EnglishCources.Repository.Implements
                         {
                             ID = reader.GetInt32("Id"),
                             Name = reader.GetString("Name"),
-                            Surname = reader.GetString("SurName"),
+                            Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
                             Experience = reader.GetInt32("Experience")
                         });
@@ -111,6 +111,7 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectTeacherById";
+                cmd.Parameters.AddWithValue("Id", entityId);
 
                 connection.Open();
 
@@ -120,7 +121,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         teacher.ID = reader.GetInt32("Id");
                         teacher.Name = reader.GetString("Name");
-                        teacher.Surname = reader.GetString("SurName");
+                        teacher.Surname = reader.GetString("Surname");
                         teacher.Age = reader.GetInt32("Age");
                         teacher.Experience = reader.GetInt32("Experience");
                     }
@@ -150,7 +151,7 @@ namespace EnglishCources.Repository.Implements
                         {
                             ID = reader.GetInt32("Id"),
                             Name = reader.GetString("Name"),
-                            Surname = reader.GetString("SurName"),
+                            Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
                             Experience = reader.GetInt32("Experience")
                         });
@@ -177,7 +178,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }

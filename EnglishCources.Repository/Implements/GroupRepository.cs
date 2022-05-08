@@ -61,7 +61,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }
@@ -119,7 +119,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel englishLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            ID = reader.GetInt32("LevelId"),
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
@@ -178,7 +178,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         group.MinLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            ID = reader.GetInt32("LevelId"),
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
@@ -231,7 +231,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         group.MinLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            ID = reader.GetInt32("LevelId"),
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
@@ -325,7 +325,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }

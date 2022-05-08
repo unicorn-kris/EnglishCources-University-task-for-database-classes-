@@ -62,7 +62,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }
@@ -116,28 +116,9 @@ namespace EnglishCources.Repository.Implements
 
                     while (reader.Read())
                     {
-                        EnglishLevel englishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
-
-                        if (lesson != null)
-                        {
-                            lesson.Group.MinLevel = englishLevel;
-                        }
-                    }
-
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
                         Book book = new Book()
                         {
-                            ID = reader.GetInt32("EnglishLevelId"),
+                            ID = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
@@ -147,25 +128,6 @@ namespace EnglishCources.Repository.Implements
                         if (lesson != null)
                         {
                             lesson.Book = book;
-                        }
-                    }
-
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
-                        EnglishLevel englishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
-
-                        if (lesson != null)
-                        {
-                            lesson.Book.EnglishLevel = englishLevel;
                         }
                     }
                 }
@@ -183,6 +145,7 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectLessonById";
+                cmd.Parameters.AddWithValue("Id", entityId);
 
                 connection.Open();
 
@@ -212,19 +175,6 @@ namespace EnglishCources.Repository.Implements
 
                     while (reader.Read())
                     {
-                        lesson.Group.MinLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                    }
-
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
                         lesson.Book = new Book()
                         {
                             ID = reader.GetInt32("BookId"),
@@ -234,17 +184,6 @@ namespace EnglishCources.Repository.Implements
 
                     }
 
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
-                        lesson.Book.EnglishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-                    }
                 }
             }
             return lesson;
@@ -259,6 +198,7 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectLessonsByDate";
+                cmd.Parameters.AddWithValue("Date", date);
 
                 connection.Open();
 
@@ -297,28 +237,9 @@ namespace EnglishCources.Repository.Implements
 
                     while (reader.Read())
                     {
-                        EnglishLevel englishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
-
-                        if (lesson != null)
-                        {
-                            lesson.Group.MinLevel = englishLevel;
-                        }
-                    }
-
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
                         Book book = new Book()
                         {
-                            ID = reader.GetInt32("EnglishLevelId"),
+                            ID = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
@@ -331,24 +252,6 @@ namespace EnglishCources.Repository.Implements
                         }
                     }
 
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
-                        EnglishLevel englishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
-
-                        if (lesson != null)
-                        {
-                            lesson.Book.EnglishLevel = englishLevel;
-                        }
-                    }
                 }
             }
             return lessons;
@@ -363,6 +266,7 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectLessonsByGroup";
+                cmd.Parameters.AddWithValue("GroupId", groupId);
 
                 connection.Open();
 
@@ -401,28 +305,9 @@ namespace EnglishCources.Repository.Implements
 
                     while (reader.Read())
                     {
-                        EnglishLevel englishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
-
-                        if (lesson != null)
-                        {
-                            lesson.Group.MinLevel = englishLevel;
-                        }
-                    }
-
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
                         Book book = new Book()
                         {
-                            ID = reader.GetInt32("EnglishLevelId"),
+                            ID = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
@@ -432,25 +317,6 @@ namespace EnglishCources.Repository.Implements
                         if (lesson != null)
                         {
                             lesson.Book = book;
-                        }
-                    }
-
-                    reader.NextResult();
-
-                    while (reader.Read())
-                    {
-                        EnglishLevel englishLevel = new EnglishLevel()
-                        {
-                            ID = reader.GetInt32("EnglishLevelId"),
-                            Number = reader.GetInt32("Number"),
-                            Letter = reader.GetString("Letter")
-                        };
-
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
-
-                        if (lesson != null)
-                        {
-                            lesson.Book.EnglishLevel = englishLevel;
                         }
                     }
                 }
@@ -473,7 +339,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }

@@ -60,7 +60,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }
@@ -156,19 +156,19 @@ namespace EnglishCources.Repository.Implements
                         };
                     }
 
-                    reader.NextResult();
+                    //reader.NextResult();
 
-                    while (reader.Read())
-                    {
-                        exam.Group.Teacher = new Teacher()
-                        {
-                            ID = reader.GetInt32("GroupId"),
-                            Name = reader.GetString("Name"),
-                            Surname = reader.GetString("Surname"),
-                            Age = reader.GetInt32("Age"),
-                            Experience = reader.GetInt32("Experience")
-                        };
-                    }
+                    //while (reader.Read())
+                    //{
+                    //    exam.Group.Teacher = new Teacher()
+                    //    {
+                    //        ID = reader.GetInt32("GroupId"),
+                    //        Name = reader.GetString("Name"),
+                    //        Surname = reader.GetString("Surname"),
+                    //        Age = reader.GetInt32("Age"),
+                    //        Experience = reader.GetInt32("Experience")
+                    //    };
+                    //}
 
                 }
             }
@@ -280,7 +280,7 @@ namespace EnglishCources.Repository.Implements
 
                 connection.Open();
 
-                if (cmd.ExecuteNonQuery() != 1)
+                if (cmd.ExecuteNonQuery() < 1)
                 {
                     throw new IncorrectIdException();
                 }

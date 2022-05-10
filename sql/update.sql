@@ -132,17 +132,17 @@ ELSE
 END
 GO
 
-CREATE TRIGGER updateNewStudentTrigger ON Students
+ALTER TRIGGER updateNewStudentTrigger ON Students
 AFTER UPDATE
 AS
 BEGIN
 IF (SELECT Group_Number FROM deleted) != (SELECT Group_Number FROM inserted)
 BEGIN
-	INSERT INTO TransitionToTheGroup(Group_New, Student) SELECT Group_Number, Id FROM inserted
+	INSERT INTO TransitionToTheGroup(Group_New, Student, Date) SELECT Group_Number, Id, CONVERT (date, GETDATE()) FROM inserted
 END
 IF (SELECT English_Level FROM deleted) != (SELECT English_Level FROM inserted)
 BEGIN
-	INSERT INTO TransitionToTheLevel(Level_New, Student) SELECT English_Level, Id FROM inserted
+	INSERT INTO TransitionToTheLevel(Level_New, Student, Date) SELECT English_Level, Id, CONVERT (date, GETDATE()) FROM inserted
 END
 END
 GO

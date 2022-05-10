@@ -1,11 +1,45 @@
 ﻿namespace EnglishCources.Common
 {
-    public class Teacher
+    public class Teacher: NotifyPropertyChangedBase
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public int Age { get; set; }
-        public int Experience { get; set; }
+        private int _id;
+
+        private string _name;
+
+        private string _surname;
+
+        private int _age;
+
+        private int _experience;
+
+        public int ID
+        {
+            get => _id;
+            set => OnPropertyChanged(value, ref _id);
+        }
+
+        public string Name
+        {
+            get => _name;
+            set => OnPropertyChanged(value, ref _name);
+        }
+
+        public string Surname
+        {
+            get => _surname;
+            set => OnPropertyChanged(value, ref _surname);
+        }
+
+        public int Age
+        {
+            get => _age;
+            set => OnPropertyChanged(value, ref _age);
+        }
+
+        public int Experience
+        {
+            get => _experience;
+            set => OnPropertyChanged(value, ref _experience);
+        }
     }
 }

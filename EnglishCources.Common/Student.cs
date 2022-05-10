@@ -1,11 +1,46 @@
 ﻿namespace EnglishCources.Common
 {
-    public class Student
+    public class Student: NotifyPropertyChangedBase
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public EnglishLevel EnglishLevel { get; set; }
-        public Group GroupNumber { get; set; }
+        private int _id;
+
+        private string _name;
+
+        private string _surname;
+
+        private EnglishLevel _englishLevel;
+
+        private Group _groupNumber;
+
+        public int ID
+        {
+            get => _id;
+            set => OnPropertyChanged(value, ref _id);
+        }
+
+        public string Name
+        {
+            get => _name;
+            set => OnPropertyChanged(value, ref _name);
+        }
+
+        public string Surname
+        {
+            get => _surname;
+            set => OnPropertyChanged(value, ref _surname);
+        }
+
+        public EnglishLevel EnglishLevel
+        {
+            get => _englishLevel;
+            set => OnPropertyChanged(value, ref _englishLevel);
+        }
+
+
+        public Group GroupNumber
+        {
+            get => _groupNumber;
+            set => OnPropertyChanged(value, ref _groupNumber);
+        }
     }
 }

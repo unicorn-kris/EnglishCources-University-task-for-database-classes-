@@ -1,11 +1,45 @@
 ﻿namespace EnglishCources.Common
 {
-    public class Lesson
+    public class Lesson: NotifyPropertyChangedBase
     {
-        public int ID { get; set; }
-        public Group Group { get; set; }
-        public DateTime Day { get; set; }
-        public int Hour { get; set; }
-        public Book Book { get; set; }
+        private int _id;
+
+        private Group _group;
+
+        private DateTime _day;
+
+        private int _hour;
+
+        private Book _book;
+
+        public int ID
+        {
+            get => _id;
+            set => OnPropertyChanged(value, ref _id);
+        }
+
+        public Group Group
+        {
+            get => _group;
+            set => OnPropertyChanged(value, ref _group);
+        }
+
+        public DateTime Day
+        {
+            get => _day;
+            set => OnPropertyChanged(value, ref _day);
+        }
+
+        public int Hour
+        {
+            get => _hour;
+            set => OnPropertyChanged(value, ref _hour);
+        }
+
+        public Book Book
+        {
+            get => _book;
+            set => OnPropertyChanged(value, ref _book);
+        }
     }
 }

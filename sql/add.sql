@@ -145,12 +145,12 @@ ELSE
 END
 GO
 
-CREATE TRIGGER addNewStudentTrigger ON Students
+ALTER TRIGGER addNewStudentTrigger ON Students
 AFTER INSERT
 AS
 BEGIN
-	INSERT INTO TransitionToTheGroup(Group_New, Student) SELECT Group_Number, Id FROM inserted
-	INSERT INTO TransitionToTheLevel(Level_New, Student) SELECT English_Level, Id FROM inserted
+	INSERT INTO TransitionToTheGroup(Group_New, Student, Date) SELECT Group_Number, Id, CONVERT (date, GETDATE()) FROM inserted
+	INSERT INTO TransitionToTheLevel(Level_New, Student, Date) SELECT English_Level, Id, CONVERT (date, GETDATE()) FROM inserted
 END
 GO
 

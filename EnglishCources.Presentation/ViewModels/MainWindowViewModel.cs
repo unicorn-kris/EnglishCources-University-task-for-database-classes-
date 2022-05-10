@@ -23,13 +23,13 @@ namespace EnglishCources.Presentation.ViewModels
             ITransitionToTheLevelLogic transitionToTheLevelLogic)
 
         {
-            Teachers = (ObservableCollection<Teacher>)teacherLogic.GetAll();
-            Students = (ObservableCollection<Student>)studentLogic.GetAll();
-            Lessons = (ObservableCollection<Lesson>)lessonLogic.GetAll();
-            Exams = (ObservableCollection<Exam>)examLogic.GetAll();
-            ExamResults = (ObservableCollection<ExamResults>)examResultsLogic.GetAll();
-            Groups = (ObservableCollection<Group>)groupLogic.GetAll();
-            EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+            Teachers = new ObservableCollection<Teacher>(teacherLogic.GetAll());
+            Students = new ObservableCollection<Student>(studentLogic.GetAll());
+            Lessons = new ObservableCollection<Lesson>(lessonLogic.GetAll());
+            Exams = new ObservableCollection<Exam>(examLogic.GetAll());
+            ExamResults = new ObservableCollection<ExamResults>(examResultsLogic.GetAll());
+            Groups = new ObservableCollection<Group>(groupLogic.GetAll());
+            EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
 
             AddBookCommand = new RelayCommand(AddBook);
             AddEnglishLevelCommand = new RelayCommand(AddEnglishLevel);
@@ -58,10 +58,7 @@ namespace EnglishCources.Presentation.ViewModels
             UpdateStudentCommand = new RelayCommand(UpdateStudent);
             UpdateTeacherCommand = new RelayCommand(UpdateTeacher);
 
-            TransitionToTheGroupsByDateCommand = new RelayCommand(TransitionToTheGroupsByDate);
-            TransitionToTheGroupsByGroupCommand = new RelayCommand(TransitionToTheGroupsByGroup);
-            TransitionToTheLevelsByDateCommand = new RelayCommand(TransitionToTheLevelsByDate);
-            TransitionToTheLevelsByLevelCommand = new RelayCommand(TransitionToTheLevelsByLevel);
+            TransitionsCommand = new RelayCommand(Transitions);
 
             SortTeachersForExperienceCommand = new RelayCommand(SortTeachersForExperience);
         }
@@ -130,13 +127,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         public ICommand UpdateTeacherCommand { get; }
 
-        public ICommand TransitionToTheGroupsByGroupCommand { get; }
-
-        public ICommand TransitionToTheGroupsByDateCommand { get; }
-
-        public ICommand TransitionToTheLevelsByLevelCommand { get; }
-
-        public ICommand TransitionToTheLevelsByDateCommand { get; }
+        public ICommand TransitionsCommand { get; }
 
         public ICommand SortTeachersForExperienceCommand { get; }
 
@@ -190,14 +181,8 @@ namespace EnglishCources.Presentation.ViewModels
                
         public void UpdateTeacher(object? obj) { }
                
-        public void TransitionToTheGroupsByGroup(object? obj) { }
-               
-        public void TransitionToTheGroupsByDate(object? obj) { }
-               
-        public void TransitionToTheLevelsByLevel(object? obj) { }
-               
-        public void TransitionToTheLevelsByDate(object? obj) { }
-               
+        public void Transitions(object? obj) { }
+
         public void SortTeachersForExperience(object? obj) { }
     }
 }

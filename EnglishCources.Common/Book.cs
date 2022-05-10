@@ -1,10 +1,39 @@
-﻿namespace EnglishCources.Common
+﻿using System.ComponentModel;
+
+namespace EnglishCources.Common
 {
-    public class Book
+    public class Book : NotifyPropertyChangedBase
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public EnglishLevel EnglishLevel { get; set; }
+        private int _id;
+
+        private string _title;
+
+        private string _author;
+
+        private EnglishLevel _englishLevel;
+
+        public int ID {
+            get => _id;
+            set => OnPropertyChanged(value, ref _id);
+        }
+
+        public string Title
+        {
+            get => _title;
+            set => OnPropertyChanged(value, ref _title);
+        }
+
+        public string Author
+        {
+            get => _author;
+            set => OnPropertyChanged(value, ref _author);
+        }
+
+        public EnglishLevel EnglishLevel
+        {
+            get => _englishLevel;
+            set => OnPropertyChanged(value, ref _englishLevel);
+        }
+
     }
 }

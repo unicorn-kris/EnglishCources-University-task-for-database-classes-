@@ -50,6 +50,7 @@ namespace EnglishCources.Presentation.ViewModels
                 try
                 {
                     _entityLogic.Delete(_entityId);
+                    ((Window)obj).Close();
                 }
                 catch (Exception ex)
                 {
@@ -61,6 +62,7 @@ namespace EnglishCources.Presentation.ViewModels
             {
                 MessageBox.Show("Enter Id", "Enter Id",
          MessageBoxButton.OK, MessageBoxImage.Error);
+                ((Window)obj).Close();
             }
         }
 
@@ -83,6 +85,7 @@ namespace EnglishCources.Presentation.ViewModels
             {
                 MessageBox.Show("Enter Id", "Enter Id",
          MessageBoxButton.OK, MessageBoxImage.Error);
+                ((Window)obj).Close();
             }
         }
     }

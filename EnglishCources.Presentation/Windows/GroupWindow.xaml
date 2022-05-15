@@ -14,7 +14,7 @@
         <Label Content="Number" HorizontalAlignment="Left"  Margin="25,103,0,0" VerticalAlignment="Top" FontSize="14"/>
         <TextBox x:Name="Number" Text ="{Binding Number}" HorizontalAlignment="Left" Margin="91,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40" PreviewTextInput="Number_PreviewTextInput" Grid.ColumnSpan="2"/>
 
-        <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="115,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
+        <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="115,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
         <Label Content="Min Level" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="14"/>
         <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding EnglishLevels}" SelectedValue="{Binding EnglishLevel}" Margin="109,13,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
         <Label Content="Teacher" HorizontalAlignment="Left" Margin="27,55,0,0" VerticalAlignment="Top" FontSize="14"/>

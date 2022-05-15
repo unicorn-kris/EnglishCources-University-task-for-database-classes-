@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -41,7 +42,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public ExamResultsWindowViewModel(IExamResultsLogic examResultsLogic, IStudentLogic studentLogic, IExamLogic examLogic, int entityId)
         {
@@ -54,8 +55,8 @@ namespace EnglishCources.Presentation.ViewModels
                 Mark = examResults.Mark;
                 Exam = examResults.Exam;
 
-                Students = (ObservableCollection<Student>)studentLogic.GetAll();
-                Exams = (ObservableCollection<Exam>)examLogic.GetAll();
+                Students = new ObservableCollection<Student>(studentLogic.GetAll());
+                Exams = new ObservableCollection<Exam>(examLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -70,8 +71,8 @@ namespace EnglishCources.Presentation.ViewModels
 
             try
             {
-                Students = (ObservableCollection<Student>)studentLogic.GetAll();
-                Exams = (ObservableCollection<Exam>)examLogic.GetAll();
+                Students = new ObservableCollection<Student>(studentLogic.GetAll());
+                Exams = new ObservableCollection<Exam>(examLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -79,7 +80,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             ExamResults examResults = new ExamResults();
 
@@ -90,10 +91,12 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _examResultsLogic.Update((int)_entityId, examResults);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _examResultsLogic.Add(examResults);
+                ((Window)obj).Close();
             }
         }
     }

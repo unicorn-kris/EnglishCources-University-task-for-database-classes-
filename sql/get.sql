@@ -1,3 +1,10 @@
+ALTER TABLE Exams
+DROP CONSTRAINT FK_Exams_Groups;
+GO
+
+ALTER TABLE Lessons
+ADD Constraint FK_Exams_Groups Foreign KEY (Group_Number) REFERENCES Groups(Id)
+GO
 
 CREATE PROCEDURE SelectAllBooks
 AS

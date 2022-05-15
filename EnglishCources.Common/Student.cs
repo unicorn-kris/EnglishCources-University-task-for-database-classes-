@@ -12,10 +12,19 @@
 
         private Group _groupNumber;
 
+        private int _age;
+
         public int ID
         {
             get => _id;
             set => OnPropertyChanged(value, ref _id);
+        }
+
+
+        public int Age
+        {
+            get => _age;
+            set => OnPropertyChanged(value, ref _age);
         }
 
         public string Name

@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -35,7 +36,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public ExamWindowViewModel(IExamLogic examLogic, IGroupLogic groupLogic, int entityId)
         {
@@ -48,7 +49,7 @@ namespace EnglishCources.Presentation.ViewModels
                 Group = exam.Group;
                 Date = exam.Date;
 
-                Groups = (ObservableCollection<Group>)groupLogic.GetAll();
+                Groups = new ObservableCollection<Group>(groupLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -63,7 +64,7 @@ namespace EnglishCources.Presentation.ViewModels
 
             try
             {
-                Groups = (ObservableCollection<Group>)groupLogic.GetAll();
+                Groups = new ObservableCollection<Group>(groupLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -71,7 +72,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             Exam exam = new Exam();
 
@@ -81,10 +82,12 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _examLogic.Update((int)_entityId, exam);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _examLogic.Add(exam);
+                ((Window)obj).Close();
             }
         }
     }

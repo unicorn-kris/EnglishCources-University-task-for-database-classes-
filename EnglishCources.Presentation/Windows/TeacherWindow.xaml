@@ -9,7 +9,7 @@
     <Grid>
         <TextBox x:Name="Name" Text ="{Binding Name}" HorizontalAlignment="Left" Margin="109,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40"/>
 
-        <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="131,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
+        <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="131,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
         <Label Content="Surname" HorizontalAlignment="Left" Margin="27,61,0,0" VerticalAlignment="Top" FontSize="14"/>
         <TextBox x:Name="Age" Text ="{Binding Age}" HorizontalAlignment="Left" Margin="109,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40" PreviewTextInput="Age_PreviewTextInput"/>
         <Label Content="Age" HorizontalAlignment="Left" Margin="33,106,0,0" VerticalAlignment="Top" FontSize="14"/>

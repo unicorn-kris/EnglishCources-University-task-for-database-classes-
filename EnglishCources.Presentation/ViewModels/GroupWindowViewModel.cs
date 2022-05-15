@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -44,7 +45,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public GroupWindowViewModel(IGroupLogic groupLogic, IEnglishLevelLogic englishLevelLogic, ITeacherLogic teacherLogic, int entityId)
         {
@@ -60,8 +61,8 @@ namespace EnglishCources.Presentation.ViewModels
                 EnglishLevel = group.MinLevel;
                 Number = group.Number;
 
-                Teachers = (ObservableCollection<Teacher>)teacherLogic.GetAll();
-                EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+                Teachers = new ObservableCollection<Teacher>(teacherLogic.GetAll());
+                EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -78,8 +79,8 @@ namespace EnglishCources.Presentation.ViewModels
 
             try
             {
-                Teachers = (ObservableCollection<Teacher>)teacherLogic.GetAll();
-                EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+                Teachers = new ObservableCollection<Teacher>(teacherLogic.GetAll());
+                EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -87,7 +88,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             Group group = new Group();
 
@@ -98,10 +99,12 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _groupLogic.Update((int)_entityId, group);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _groupLogic.Add(group);
+                ((Window)obj).Close();
             }
         }
     }

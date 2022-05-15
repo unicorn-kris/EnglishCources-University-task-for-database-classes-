@@ -2,6 +2,7 @@
 using EnglishCources.Logic.Contracts;
 using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -29,7 +30,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public EnglishLevelWindowViewModel(IEnglishLevelLogic englishLevelLogic, int entityId)
         {
@@ -53,7 +54,7 @@ namespace EnglishCources.Presentation.ViewModels
             _englishLevelLogic = englishLevelLogic;
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             EnglishLevel englishLevel = new EnglishLevel();
 
@@ -63,10 +64,12 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _englishLevelLogic.Update((int)_entityId, englishLevel);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _englishLevelLogic.Add(englishLevel);
+                ((Window)obj).Close();
             }
         }
     }

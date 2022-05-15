@@ -20,5 +20,10 @@ namespace EnglishCources.Presentation.Windows
 
             DataContext = _container.Resolve<MainWindowViewModel>();
         }
+
+        private void DataGrid_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
+        }
     }
 }

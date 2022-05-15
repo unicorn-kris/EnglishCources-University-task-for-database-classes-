@@ -26,8 +26,9 @@ namespace EnglishCources.Repository.Implements
                 cmd.CommandText = "AddStudent";
                 cmd.Parameters.AddWithValue("Name", entity.Name);
                 cmd.Parameters.AddWithValue("Surname", entity.Surname);
-                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel);
-                cmd.Parameters.AddWithValue("GroupNumber", entity.GroupNumber);
+                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel.ID);
+                cmd.Parameters.AddWithValue("GroupNumber", entity.GroupNumber.ID);
+                cmd.Parameters.AddWithValue("Age", entity.Age);
 
                 var id = new SqlParameter
                 {
@@ -37,11 +38,19 @@ namespace EnglishCources.Repository.Implements
                 };
                 cmd.Parameters.Add(id);
 
-                connection.Open();
-
-                if (cmd.ExecuteNonQuery() >= 1)
+                var returnValue = new SqlParameter
                 {
-                    addedEntityId = int.Parse(cmd.ExecuteScalar().ToString());
+                    DbType = DbType.Int32,
+                    Direction = ParameterDirection.ReturnValue
+                };
+                cmd.Parameters.Add(returnValue);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+
+                if ((int)returnValue.Value != -1 && returnValue.Value != null)
+                {
+                    addedEntityId = (int)returnValue.Value;
                 }
                 else
                 {
@@ -112,6 +121,7 @@ namespace EnglishCources.Repository.Implements
                         }
                     }
 
+                    reader.NextResult();
 
                     while (reader.Read())
                     {

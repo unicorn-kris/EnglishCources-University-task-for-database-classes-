@@ -1,6 +1,7 @@
 ﻿using EnglishCources.Common;
 using EnglishCources.Logic.Contracts;
 using EnglishCources.Presentation.Windows;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -96,6 +97,7 @@ namespace EnglishCources.Presentation.ViewModels
         }
 
         #region collections
+
         public ObservableCollection<Teacher> Teachers { get; set; }
 
         public ObservableCollection<Student> Students { get; set; }
@@ -173,7 +175,7 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new BookWindowViewModel(_bookLogic, _englishLevelLogic);
             Window window = new BookWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
         public void AddEnglishLevel(object? obj)
@@ -181,15 +183,18 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new EnglishLevelWindowViewModel(_englishLevelLogic);
             Window window = new EnglishLevelWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
-        public void AddExamResults(object? obj)
+        public async void AddExamResults(object? obj)
         {
             var vm = new ExamResultsWindowViewModel(_examResultsLogic, _studentLogic, _examLogic);
             Window window = new ExamResultsWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            ExamResults.Clear();
+            ExamResults.AddRange(_examResultsLogic.GetAll());
         }
 
         public void AddExam(object? obj)
@@ -197,7 +202,10 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new ExamWindowViewModel(_examLogic, _groupLogic);
             Window window = new ExamWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Exams.Clear();
+            Exams.AddRange(_examLogic.GetAll());
         }
 
         public void AddGroup(object? obj)
@@ -205,7 +213,10 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new GroupWindowViewModel(_groupLogic, _englishLevelLogic, _teacherLogic);
             Window window = new GroupWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Groups.Clear();
+            Groups.AddRange(_groupLogic.GetAll());
         }
 
         public void AddLesson(object? obj)
@@ -213,7 +224,10 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new LessonWindowViewModel(_lessonLogic, _groupLogic, _bookLogic);
             Window window = new LessonWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Lessons.Clear();
+            Lessons.AddRange(_lessonLogic.GetAll());
         }
 
         public void AddStudent(object? obj)
@@ -221,7 +235,10 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new StudentWindowViewModel(_studentLogic, _groupLogic, _englishLevelLogic);
             Window window = new StudentWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Students.Clear();
+            Students.AddRange(_studentLogic.GetAll());
         }
 
         public void AddTeacher(object? obj)
@@ -229,7 +246,10 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new TeacherWindowViewModel(_teacherLogic);
             Window window = new TeacherWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Teachers.Clear();
+            Teachers.AddRange(_teacherLogic.GetAll());
         }
 
         #endregion
@@ -242,7 +262,7 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
         public void DeleteEnglishLevel(object? obj)
@@ -252,7 +272,7 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
         public void DeleteExamResults(object? obj)
@@ -262,7 +282,10 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            ExamResults.Clear();
+            ExamResults.AddRange(_examResultsLogic.GetAll());
         }
 
         public void DeleteExam(object? obj)
@@ -272,7 +295,10 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Exams.Clear();
+            Exams.AddRange(_examLogic.GetAll());
         }
 
         public void DeleteGroup(object? obj)
@@ -282,7 +308,10 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Groups.Clear();
+            Groups.AddRange(_groupLogic.GetAll());
         }
 
         public void DeleteLesson(object? obj)
@@ -292,7 +321,10 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Lessons.Clear();
+            Lessons.AddRange(_lessonLogic.GetAll());
         }
 
         public void DeleteStudent(object? obj)
@@ -302,7 +334,10 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Students.Clear();
+            Students.AddRange(_studentLogic.GetAll());
         }
 
         public void DeleteTeacher(object? obj)
@@ -312,7 +347,10 @@ namespace EnglishCources.Presentation.ViewModels
             vm.DeleteVisible = true;
             vm.UpdateVisible = false;
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Teachers.Clear();
+            Teachers.AddRange(_teacherLogic.GetAll());
         }
 
         #endregion
@@ -325,14 +363,14 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new BookWindowViewModel(_bookLogic, _englishLevelLogic, selectId);
             window = new BookWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
         public void UpdateEnglishLevel(object? obj)
@@ -342,14 +380,14 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new EnglishLevelWindowViewModel(_englishLevelLogic, selectId);
             window = new EnglishLevelWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
         public void UpdateExamResults(object? obj)
@@ -359,14 +397,17 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new ExamResultsWindowViewModel(_examResultsLogic, _studentLogic, _examLogic, selectId);
             window = new ExamResultsWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            ExamResults.Clear();
+            ExamResults.AddRange(_examResultsLogic.GetAll());
         }
 
         public void UpdateExam(object? obj)
@@ -376,14 +417,18 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new ExamWindowViewModel(_examLogic, _groupLogic, selectId);
             window = new ExamWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+
+            Exams.Clear();
+            Exams.AddRange(_examLogic.GetAll());
         }
 
         public void UpdateGroup(object? obj)
@@ -393,14 +438,18 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new GroupWindowViewModel(_groupLogic, _englishLevelLogic, _teacherLogic, selectId);
             window = new GroupWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+
+            Groups.Clear();
+            Groups.AddRange(_groupLogic.GetAll());
         }
 
         public void UpdateLesson(object? obj)
@@ -410,14 +459,18 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new LessonWindowViewModel(_lessonLogic, _groupLogic, _bookLogic, selectId);
             window = new LessonWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+
+            Lessons.Clear();
+            Lessons.AddRange(_lessonLogic.GetAll());
         }
 
         public void UpdateStudent(object? obj)
@@ -427,14 +480,17 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new StudentWindowViewModel(_studentLogic, _groupLogic, _englishLevelLogic, selectId);
             window = new StudentWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Students.Clear();
+            Students.AddRange(_studentLogic.GetAll());
         }
 
         public void UpdateTeacher(object? obj)
@@ -444,14 +500,17 @@ namespace EnglishCources.Presentation.ViewModels
             selectvm.DeleteVisible = false;
             selectvm.UpdateVisible = true;
             window.DataContext = selectvm;
-            window.Show();
+            window.ShowDialog();
 
             int selectId = selectvm.EntityId;
 
             var vm = new TeacherWindowViewModel(_teacherLogic, selectId);
             window = new TeacherWindow();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
+
+            Teachers.Clear();
+            Teachers.AddRange(_teacherLogic.GetAll());
         }
 
         #endregion
@@ -461,7 +520,7 @@ namespace EnglishCources.Presentation.ViewModels
             var vm = new TransitionsWindowViewModel(_transitionToTheGroupLogic, _transitionToTheLevelLogic, _groupLogic, _englishLevelLogic);
             Window window = new Transitions();
             window.DataContext = vm;
-            window.Show();
+            window.ShowDialog();
         }
 
         private bool IsSortTeach = false;
@@ -472,11 +531,25 @@ namespace EnglishCources.Presentation.ViewModels
 
             if (IsSortTeach)
             {
-                Teachers = new ObservableCollection<Teacher>(_teacherLogic.SortedTeachersByExperience());
+
+                Teachers.Clear();
+                Teachers.AddRange(_teacherLogic.SortedTeachersByExperience());
             }
             else
             {
-                Teachers = new ObservableCollection<Teacher>(_teacherLogic.GetAll());
+                Teachers.Clear();
+                Teachers.AddRange(_teacherLogic.GetAll());
+            }
+        }
+    }
+
+    internal static class ObservableHelp
+    {
+        public static void AddRange<T>(this IList<T> collection, IEnumerable<T> addCollection)
+        {
+            foreach (var item in addCollection)
+            {
+                collection.Add(item);
             }
         }
     }

@@ -5,18 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
         mc:Ignorable="d"
-        Title="StudentWindow" Height="293" Width="346">
+        Title="StudentWindow" Height="343" Width="346">
     <Grid Margin="0,0,0,4">
         <TextBox x:Name="Name" Text ="{Binding Name}" HorizontalAlignment="Left" Margin="109,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40"/>
 
-        <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="131,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
+        <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="125,267,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
         <Label Content="Group" HorizontalAlignment="Left" Margin="24,15,0,0" VerticalAlignment="Top" FontSize="14"/>
         <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Groups}" SelectedValue="{Binding Group}" Margin="135,15,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="27,63,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Content="Surname" Margin="17,107,263,126" FontSize="14"/>
         <TextBox x:Name="Surname" Text ="{Binding Surname}" HorizontalAlignment="Left" Margin="109,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40"/>
-        <Label Content="English level" HorizontalAlignment="Left" Margin="6,152,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
-        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding EnglishLevels}" SelectedValue="{Binding EnglishLevel}" Margin="135,156,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="English level" HorizontalAlignment="Left" Margin="17,214,0,0" VerticalAlignment="Top" Width="89" FontSize="14"/>
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding EnglishLevels}" SelectedValue="{Binding EnglishLevel}" Margin="135,221,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Age" Text ="{Binding Age}" HorizontalAlignment="Left" Margin="109,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40" PreviewTextInput="Age_PreviewTextInput"/>
+        <Label Content="Age" HorizontalAlignment="Left" Margin="33,162,0,0" VerticalAlignment="Top" FontSize="14"/>
 
     </Grid>
 </Window>

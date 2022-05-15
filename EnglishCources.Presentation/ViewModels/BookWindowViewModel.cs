@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -38,7 +39,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         public ObservableCollection<EnglishLevel> EnglishLevels { get; set; }
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         private IBookLogic _bookLogic;
 
@@ -47,7 +48,7 @@ namespace EnglishCources.Presentation.ViewModels
         public BookWindowViewModel(IBookLogic bookLogic, IEnglishLevelLogic englishLevelLogic, int entityId)
         {
 
-            _bookLogic = bookLogic; 
+            _bookLogic = bookLogic;
             try
             {
                 Book book = _bookLogic.GetById(entityId);
@@ -60,7 +61,7 @@ namespace EnglishCources.Presentation.ViewModels
                     _entityId = entityId;
                 }
 
-                EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+                EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -75,7 +76,7 @@ namespace EnglishCources.Presentation.ViewModels
 
             try
             {
-                EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+                EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -83,7 +84,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             Book newBook = new Book();
 
@@ -94,11 +95,15 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _bookLogic.Update((int)_entityId, newBook);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _bookLogic.Add(newBook);
+                ((Window)obj).Close();
             }
+
+            ((Window)obj).Close();
         }
     }
 }

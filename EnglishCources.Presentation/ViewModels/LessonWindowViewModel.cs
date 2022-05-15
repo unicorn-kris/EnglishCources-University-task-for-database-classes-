@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -51,7 +52,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public LessonWindowViewModel(ILessonLogic lessonLogic, IGroupLogic groupLogic, IBookLogic bookLogic, int entityId)
         {
@@ -67,8 +68,8 @@ namespace EnglishCources.Presentation.ViewModels
                 Hour = lesson.Hour;
                 Book = lesson.Book;
 
-                Groups = (ObservableCollection<Group>)groupLogic.GetAll();
-                Books = (ObservableCollection<Book>)bookLogic.GetAll();
+                Groups = new ObservableCollection<Group>(groupLogic.GetAll());
+                Books = new ObservableCollection<Book>(bookLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -83,8 +84,8 @@ namespace EnglishCources.Presentation.ViewModels
 
             try
             {
-                Groups = (ObservableCollection<Group>)groupLogic.GetAll();
-                Books = (ObservableCollection<Book>)bookLogic.GetAll();
+                Groups = new ObservableCollection<Group>(groupLogic.GetAll());
+                Books = new ObservableCollection<Book>(bookLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -92,7 +93,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             Lesson lesson = new Lesson();
 
@@ -104,10 +105,12 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _lessonLogic.Update((int)_entityId, lesson);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _lessonLogic.Add(lesson);
+                ((Window)obj).Close();
             }
         }
     }

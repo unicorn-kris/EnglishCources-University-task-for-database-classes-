@@ -26,7 +26,7 @@ namespace EnglishCources.Repository.Implements
                 cmd.CommandText = "AddBook";
                 cmd.Parameters.AddWithValue("Title", entity.Title);
                 cmd.Parameters.AddWithValue("Author", entity.Author);
-                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel);
+                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel.ID);
 
                 var id = new SqlParameter
                 {
@@ -36,11 +36,19 @@ namespace EnglishCources.Repository.Implements
                 };
                 cmd.Parameters.Add(id);
 
-                connection.Open();
-
-                if (cmd.ExecuteNonQuery() >= 1)
+                var returnValue = new SqlParameter
                 {
-                    addedEntityId = int.Parse(cmd.ExecuteScalar().ToString());
+                    DbType = DbType.Int32,
+                    Direction = ParameterDirection.ReturnValue
+                };
+                cmd.Parameters.Add(returnValue);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+
+                if ((int)returnValue.Value != -1 && returnValue.Value != null)
+                {
+                    addedEntityId = (int)returnValue.Value;
                 }
                 else
                 {

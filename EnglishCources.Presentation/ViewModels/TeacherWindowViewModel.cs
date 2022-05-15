@@ -2,6 +2,7 @@
 using EnglishCources.Logic.Contracts;
 using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -48,7 +49,7 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public TeacherWindowViewModel(ITeacherLogic teacherLogic, int entityId)
         {
@@ -76,7 +77,7 @@ namespace EnglishCources.Presentation.ViewModels
             _teacherLogic = teacherLogic;
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             Teacher teacher = new Teacher();
 
@@ -88,10 +89,12 @@ namespace EnglishCources.Presentation.ViewModels
             if (_entityId != null)
             {
                 _teacherLogic.Update((int)_entityId, teacher);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _teacherLogic.Add(teacher);
+                ((Window)obj).Close();
             }
         }
     }

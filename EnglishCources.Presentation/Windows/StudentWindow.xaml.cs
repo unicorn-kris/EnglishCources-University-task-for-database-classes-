@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Linq;
+using System.Windows;
 
 namespace EnglishCources.Presentation.Windows
 {
@@ -10,6 +12,14 @@ namespace EnglishCources.Presentation.Windows
         public StudentWindow()
         {
             InitializeComponent();
+        }
+
+        private void Age_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (e.Text.Any(s => !Char.IsDigit(s)))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

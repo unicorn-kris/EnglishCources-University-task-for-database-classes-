@@ -13,8 +13,8 @@
         <TextBox x:Name="BookAuthor" Text ="{Binding Author}" HorizontalAlignment="Left" Margin="83,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40"/>
         <Label Content="English level" HorizontalAlignment="Left" Margin="25,149,0,0" VerticalAlignment="Top" FontSize="14"/>
         <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding EnglishLevels}" SelectedValue="{Binding EnglishLevel}" Margin="135,152,0,0" VerticalAlignment="Top" Width="120"/>
-        
-        <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
+
+        <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
 
     </Grid>
 </Window>

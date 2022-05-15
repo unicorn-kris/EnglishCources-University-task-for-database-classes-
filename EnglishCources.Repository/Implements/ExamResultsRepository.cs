@@ -24,8 +24,8 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddExamResults";
-                cmd.Parameters.AddWithValue("Student", entity.Student);
-                cmd.Parameters.AddWithValue("Exam", entity.Exam);
+                cmd.Parameters.AddWithValue("Student", entity.Student.ID);
+                cmd.Parameters.AddWithValue("Exam", entity.Exam.ID);
                 cmd.Parameters.AddWithValue("Mark", entity.Mark);
 
                 var id = new SqlParameter
@@ -36,11 +36,19 @@ namespace EnglishCources.Repository.Implements
                 };
                 cmd.Parameters.Add(id);
 
-                connection.Open();
-
-                if (cmd.ExecuteNonQuery() >= 1)
+                var returnValue = new SqlParameter
                 {
-                    addedEntityId = int.Parse(cmd.ExecuteScalar().ToString());
+                    DbType = DbType.Int32,
+                    Direction = ParameterDirection.ReturnValue
+                };
+                cmd.Parameters.Add(returnValue);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+
+                if ((int)returnValue.Value != -1 && returnValue.Value != null)
+                {
+                    addedEntityId = (int)returnValue.Value;
                 }
                 else
                 {

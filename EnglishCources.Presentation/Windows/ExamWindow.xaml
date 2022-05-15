@@ -18,7 +18,7 @@
         <Label Content="Group" HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" FontSize="14"/>
         <Label Content="Date" HorizontalAlignment="Left"  Margin="25,86,0,0" VerticalAlignment="Top" FontSize="14"/>
 
-        <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
+        <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
         <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Groups}" SelectedValue="{Binding Group}"  Margin="109,28,0,0" VerticalAlignment="Top" Width="120"/>
         <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Date}" Margin="117,90,0,0" VerticalAlignment="Top"/>
 

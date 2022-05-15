@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
@@ -16,6 +17,8 @@ namespace EnglishCources.Presentation.ViewModels
         private EnglishLevel _englishLevel;
 
         private Group _group;
+
+        private int _age;
 
         public ObservableCollection<Group> Groups { get; set; }
 
@@ -49,11 +52,18 @@ namespace EnglishCources.Presentation.ViewModels
             set => OnPropertyChanged(value, ref _surname);
         }
 
+        public int Age
+        {
+            get => _age;
+
+            set => OnPropertyChanged(value, ref _age);
+        }
+
         private IStudentLogic _studentLogic;
 
         private int? _entityId;
 
-        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+        public ICommand SaveCommand => new RelayCommand(Save);
 
         public StudentWindowViewModel(IStudentLogic studentLogic, IGroupLogic groupLogic, IEnglishLevelLogic englishLevelLogic, int entityId)
         {
@@ -68,9 +78,10 @@ namespace EnglishCources.Presentation.ViewModels
                 Surname = student.Surname;
                 Group = student.GroupNumber;
                 EnglishLevel = student.EnglishLevel;
+                Age = student.Age;
 
-                Groups = (ObservableCollection<Group>)groupLogic.GetAll();
-                EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+                Groups = new ObservableCollection<Group>(groupLogic.GetAll());
+                EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -85,8 +96,8 @@ namespace EnglishCources.Presentation.ViewModels
 
             try
             {
-                Groups = (ObservableCollection<Group>)groupLogic.GetAll();
-                EnglishLevels = (ObservableCollection<EnglishLevel>)englishLevelLogic.GetAll();
+                Groups = new ObservableCollection<Group>(groupLogic.GetAll());
+                EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
             }
             catch (Exception e)
             {
@@ -94,7 +105,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand(object? obj)
+        public void Save(object? obj)
         {
             Student student = new Student();
 
@@ -102,14 +113,17 @@ namespace EnglishCources.Presentation.ViewModels
             student.GroupNumber = Group;
             student.EnglishLevel = EnglishLevel;
             student.Name = Name;
+            student.Age = Age;
 
             if (_entityId != null)
             {
                 _studentLogic.Update((int)_entityId, student);
+                ((Window)obj).Close();
             }
             else
             {
                 int res = _studentLogic.Add(student);
+                ((Window)obj).Close();
             }
         }
     }

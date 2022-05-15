@@ -24,7 +24,7 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddExam";
-                cmd.Parameters.AddWithValue("Group", entity.Group);
+                cmd.Parameters.AddWithValue("Group", entity.Group.ID);
                 cmd.Parameters.AddWithValue("Date", entity.Date);
 
                 var id = new SqlParameter
@@ -34,12 +34,19 @@ namespace EnglishCources.Repository.Implements
                     Direction = ParameterDirection.Output
                 };
                 cmd.Parameters.Add(id);
+                var returnValue = new SqlParameter
+                {
+                    DbType = DbType.Int32,
+                    Direction = ParameterDirection.ReturnValue
+                };
+                cmd.Parameters.Add(returnValue);
 
                 connection.Open();
+                cmd.ExecuteNonQuery();
 
-                if (cmd.ExecuteNonQuery() >= 1)
+                if ((int)returnValue.Value != -1 && returnValue.Value != null)
                 {
-                    addedEntityId = int.Parse(cmd.ExecuteScalar().ToString());
+                    addedEntityId = (int)returnValue.Value;
                 }
                 else
                 {

@@ -24,10 +24,10 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddLesson";
-                cmd.Parameters.AddWithValue("Book", entity.Book);
+                cmd.Parameters.AddWithValue("Book", entity.Book.ID);
                 cmd.Parameters.AddWithValue("Day", entity.Day);
                 cmd.Parameters.AddWithValue("Hour", entity.Hour);
-                cmd.Parameters.AddWithValue("Group", entity.Group);
+                cmd.Parameters.AddWithValue("Group", entity.Group.ID);
 
                 var id = new SqlParameter
                 {
@@ -37,11 +37,19 @@ namespace EnglishCources.Repository.Implements
                 };
                 cmd.Parameters.Add(id);
 
-                connection.Open();
-
-                if (cmd.ExecuteNonQuery() >= 1)
+                var returnValue = new SqlParameter
                 {
-                    addedEntityId = int.Parse(cmd.ExecuteScalar().ToString());
+                    DbType = DbType.Int32,
+                    Direction = ParameterDirection.ReturnValue
+                };
+                cmd.Parameters.Add(returnValue);
+
+                connection.Open();
+                cmd.ExecuteNonQuery();
+
+                if ((int)returnValue.Value != -1 && returnValue.Value != null)
+                {
+                    addedEntityId = (int)returnValue.Value;
                 }
                 else
                 {

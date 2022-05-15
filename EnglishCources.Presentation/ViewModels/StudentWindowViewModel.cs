@@ -3,10 +3,11 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
 {
-    internal class StudentWindowViewModel : NotifyPropertyChangedBase, IWindowViewModel
+    internal class StudentWindowViewModel : NotifyPropertyChangedBase
     {
         private string _name;
 
@@ -52,6 +53,8 @@ namespace EnglishCources.Presentation.ViewModels
 
         private int? _entityId;
 
+        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+
         public StudentWindowViewModel(IStudentLogic studentLogic, IGroupLogic groupLogic, IEnglishLevelLogic englishLevelLogic, int entityId)
         {
             _entityId = entityId;
@@ -91,7 +94,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand()
+        public void SaveCommand(object? obj)
         {
             Student student = new Student();
 

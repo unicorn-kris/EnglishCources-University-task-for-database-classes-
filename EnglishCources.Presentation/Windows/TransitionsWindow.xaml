@@ -20,20 +20,20 @@
     <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
         <StackPanel Orientation="Horizontal">
             <Label Content="По группам" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="14"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По дате"/>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе" Margin="5" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}"/>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="По дате" Command="{Binding SortGroupsCommand}" Margin="5"/>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding TransitionToTheGroup}" />
+        <DataGrid ItemsSource="{Binding TransitionToTheGroups}" />
     </StackPanel>
 
 
     <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
         <StackPanel Orientation="Horizontal">
             <Label Content="По уровням" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню"/>
-            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По дате"/>
-        </StackPanel>
-        <DataGrid ItemsSource="{Binding TransitionToTheLevel}" />
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню" Margin="5" ItemsSource="{Binding Levels}" SelectedValue="{Binding SelectedLevel}"/>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="По дате" Command="{Binding SortLevelsCommand}" Margin="5"/>
+            </StackPanel>
+        <DataGrid ItemsSource="{Binding TransitionToTheLevels}" />
     </StackPanel>
 
 

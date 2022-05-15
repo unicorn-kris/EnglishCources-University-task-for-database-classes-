@@ -3,10 +3,11 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
 {
-    internal class ExamResultsWindowViewModel : NotifyPropertyChangedBase, IWindowViewModel
+    internal class ExamResultsWindowViewModel : NotifyPropertyChangedBase
     {
         private Student _student;
 
@@ -39,6 +40,8 @@ namespace EnglishCources.Presentation.ViewModels
         private IExamResultsLogic _examResultsLogic;
 
         private int? _entityId;
+
+        public ICommand _saveCommand => new RelayCommand(SaveCommand);
 
         public ExamResultsWindowViewModel(IExamResultsLogic examResultsLogic, IStudentLogic studentLogic, IExamLogic examLogic, int entityId)
         {
@@ -76,7 +79,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand()
+        public void SaveCommand(object? obj)
         {
             ExamResults examResults = new ExamResults();
 

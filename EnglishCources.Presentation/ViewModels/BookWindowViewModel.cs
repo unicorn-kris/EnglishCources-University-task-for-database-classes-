@@ -3,10 +3,11 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
 {
-    internal class BookWindowViewModel : NotifyPropertyChangedBase, IWindowViewModel
+    internal class BookWindowViewModel : NotifyPropertyChangedBase
     {
         private string _title;
 
@@ -37,12 +38,15 @@ namespace EnglishCources.Presentation.ViewModels
 
         public ObservableCollection<EnglishLevel> EnglishLevels { get; set; }
 
+        public ICommand _saveCommand => new RelayCommand(SaveCommand);
+
         private IBookLogic _bookLogic;
 
         private int? _entityId;
 
         public BookWindowViewModel(IBookLogic bookLogic, IEnglishLevelLogic englishLevelLogic, int entityId)
         {
+
             _bookLogic = bookLogic; 
             try
             {
@@ -79,7 +83,7 @@ namespace EnglishCources.Presentation.ViewModels
             }
         }
 
-        public void SaveCommand()
+        public void SaveCommand(object? obj)
         {
             Book newBook = new Book();
 

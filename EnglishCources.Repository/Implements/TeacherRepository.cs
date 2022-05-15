@@ -103,7 +103,6 @@ namespace EnglishCources.Repository.Implements
 
         public Teacher GetById(int entityId)
         {
-
             Teacher teacher = new Teacher();
 
             using (var connection = new SqlConnection(_connectionString))

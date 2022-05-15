@@ -19,6 +19,7 @@ namespace EnglishCources.Presentation
             builder.RegisterType<MainWindowViewModel>().AsSelf();
             builder.RegisterType<StudentWindowViewModel>().AsSelf();
             builder.RegisterType<TeacherWindowViewModel>().AsSelf();
+            builder.RegisterType<TransitionsWindowViewModel>().AsSelf();
         }
     }
 }

@@ -1,26 +1,46 @@
 ﻿using EnglishCources.Common;
 using EnglishCources.Logic.Contracts;
-using System;
-using System.Collections.Generic;
+using EnglishCources.Presentation.Windows;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
 {
-    internal class MainWindowViewModel : NotifyPropertyChangedBase, IWindowViewModel
+    internal class MainWindowViewModel : NotifyPropertyChangedBase
     {
+        #region private 
+        private IBookLogic _bookLogic;
+
+        private ITeacherLogic _teacherLogic;
+
+        private ILessonLogic _lessonLogic;
+
+        private IEnglishLevelLogic _englishLevelLogic;
+
+        private IExamLogic _examLogic;
+
+        private IGroupLogic _groupLogic;
+
+        private ITransitionToTheGroupLogic _transitionToTheGroupLogic;
+
+        private ITransitionToTheLevelLogic _transitionToTheLevelLogic;
+
+        private IExamResultsLogic _examResultsLogic;
+
+        private IStudentLogic _studentLogic;
+        #endregion
+
         public MainWindowViewModel(IStudentLogic studentLogic,
             ITeacherLogic teacherLogic,
             ILessonLogic lessonLogic,
             IExamLogic examLogic,
-            IEnglishLevelLogic englishLevelLogic, 
-            IExamResultsLogic examResultsLogic, 
+            IEnglishLevelLogic englishLevelLogic,
+            IExamResultsLogic examResultsLogic,
             IGroupLogic groupLogic,
             ITransitionToTheGroupLogic transitionToTheGroupLogic,
-            ITransitionToTheLevelLogic transitionToTheLevelLogic)
+            ITransitionToTheLevelLogic transitionToTheLevelLogic,
+            IBookLogic bookLogic)
 
         {
             Teachers = new ObservableCollection<Teacher>(teacherLogic.GetAll());
@@ -61,8 +81,21 @@ namespace EnglishCources.Presentation.ViewModels
             TransitionsCommand = new RelayCommand(Transitions);
 
             SortTeachersForExperienceCommand = new RelayCommand(SortTeachersForExperience);
+
+            _bookLogic = bookLogic;
+            _englishLevelLogic = englishLevelLogic;
+            _examLogic = examLogic;
+            _examResultsLogic = examResultsLogic;
+            _groupLogic = groupLogic;
+            _studentLogic = studentLogic;
+            _teacherLogic = teacherLogic;
+            _groupLogic = groupLogic;
+            _lessonLogic = lessonLogic;
+            _transitionToTheGroupLogic = transitionToTheGroupLogic;
+            _transitionToTheLevelLogic = transitionToTheLevelLogic;
         }
 
+        #region collections
         public ObservableCollection<Teacher> Teachers { get; set; }
 
         public ObservableCollection<Student> Students { get; set; }
@@ -76,6 +109,7 @@ namespace EnglishCources.Presentation.ViewModels
         public ObservableCollection<Group> Groups { get; set; }
 
         public ObservableCollection<EnglishLevel> EnglishLevels { get; set; }
+        #endregion
 
         #region commands
 
@@ -133,56 +167,318 @@ namespace EnglishCources.Presentation.ViewModels
 
         #endregion
 
-        public void AddBook(object? obj) { }
-               
-        public void AddEnglishLevel(object? obj) {  }
-               
-        public void AddExamResults(object? obj) {  }
-               
-        public void AddExam(object? obj) {  }
-               
-        public void AddGroup(object? obj) {  }
-               
-        public void AddLesson(object? obj) { }
-               
-        public void AddStudent(object? obj) {  }
-               
-        public void AddTeacher(object? obj) {  }
-               
-        public void DeleteBook(object? obj) { }
-               
-        public void DeleteEnglishLevel(object? obj) {  }
-               
-        public void DeleteExamResults(object? obj) { }
-               
-        public void DeleteExam(object? obj) { }
-               
-        public void DeleteGroup(object? obj) { }
-               
-        public void DeleteLesson(object? obj) {  }
-               
-        public void DeleteStudent(object? obj) {  }
-               
-        public void DeleteTeacher(object? obj) { }
-               
-        public void UpdateBook(object? obj) { }
-               
-        public void UpdateEnglishLevel(object? obj) { }
-               
-        public void UpdateExamResults(object? obj) { }
-               
-        public void UpdateExam(object? obj) { }
-               
-        public void UpdateGroup(object? obj) {  }
-               
-        public void UpdateLesson(object? obj) {  }
-               
-        public void UpdateStudent(object? obj) { }
-               
-        public void UpdateTeacher(object? obj) { }
-               
-        public void Transitions(object? obj) { }
+        #region add commands
+        public void AddBook(object? obj)
+        {
+            var vm = new BookWindowViewModel(_bookLogic, _englishLevelLogic);
+            Window window = new BookWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
 
-        public void SortTeachersForExperience(object? obj) { }
+        public void AddEnglishLevel(object? obj)
+        {
+            var vm = new EnglishLevelWindowViewModel(_englishLevelLogic);
+            Window window = new EnglishLevelWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void AddExamResults(object? obj)
+        {
+            var vm = new ExamResultsWindowViewModel(_examResultsLogic, _studentLogic, _examLogic);
+            Window window = new ExamResultsWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void AddExam(object? obj)
+        {
+            var vm = new ExamWindowViewModel(_examLogic, _groupLogic);
+            Window window = new ExamWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void AddGroup(object? obj)
+        {
+            var vm = new GroupWindowViewModel(_groupLogic, _englishLevelLogic, _teacherLogic);
+            Window window = new GroupWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void AddLesson(object? obj)
+        {
+            var vm = new LessonWindowViewModel(_lessonLogic, _groupLogic, _bookLogic);
+            Window window = new LessonWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void AddStudent(object? obj)
+        {
+            var vm = new StudentWindowViewModel(_studentLogic, _groupLogic, _englishLevelLogic);
+            Window window = new StudentWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void AddTeacher(object? obj)
+        {
+            var vm = new TeacherWindowViewModel(_teacherLogic);
+            Window window = new TeacherWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        #endregion
+
+        #region delete commands
+        public void DeleteBook(object? obj)
+        {
+            var vm = new SelectWindowViewModel<Book>(_bookLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+
+        }
+
+        public void DeleteEnglishLevel(object? obj)
+        {
+            var vm = new SelectWindowViewModel<EnglishLevel>(_englishLevelLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void DeleteExamResults(object? obj)
+        {
+            var vm = new SelectWindowViewModel<ExamResults>(_examResultsLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void DeleteExam(object? obj)
+        {
+            var vm = new SelectWindowViewModel<Exam>(_examLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void DeleteGroup(object? obj)
+        {
+            var vm = new SelectWindowViewModel<Group>(_groupLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void DeleteLesson(object? obj)
+        {
+            var vm = new SelectWindowViewModel<Lesson>(_lessonLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void DeleteStudent(object? obj)
+        {
+            var vm = new SelectWindowViewModel<Student>(_studentLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void DeleteTeacher(object? obj)
+        {
+            var vm = new SelectWindowViewModel<Teacher>(_teacherLogic);
+            Window window = new SelectWindow();
+            vm.DeleteVisible = true;
+            vm.UpdateVisible = false;
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        #endregion
+
+        #region update commands
+        public void UpdateBook(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<Book>(_bookLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new BookWindowViewModel(_bookLogic, _englishLevelLogic, selectId);
+            window = new BookWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateEnglishLevel(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<EnglishLevel>(_englishLevelLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new EnglishLevelWindowViewModel(_englishLevelLogic, selectId);
+            window = new EnglishLevelWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateExamResults(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<ExamResults>(_examResultsLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new ExamResultsWindowViewModel(_examResultsLogic, _studentLogic, _examLogic, selectId);
+            window = new ExamResultsWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateExam(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<Exam>(_examLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new ExamWindowViewModel(_examLogic, _groupLogic, selectId);
+            window = new ExamWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateGroup(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<Group>(_groupLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new GroupWindowViewModel(_groupLogic, _englishLevelLogic, _teacherLogic, selectId);
+            window = new GroupWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateLesson(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<Lesson>(_lessonLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new LessonWindowViewModel(_lessonLogic, _groupLogic, _bookLogic, selectId);
+            window = new LessonWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateStudent(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<Student>(_studentLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new StudentWindowViewModel(_studentLogic, _groupLogic, _englishLevelLogic, selectId);
+            window = new StudentWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        public void UpdateTeacher(object? obj)
+        {
+            var selectvm = new SelectWindowViewModel<Teacher>(_teacherLogic);
+            Window window = new SelectWindow();
+            selectvm.DeleteVisible = false;
+            selectvm.UpdateVisible = true;
+            window.DataContext = selectvm;
+            window.Show();
+
+            int selectId = selectvm.EntityId;
+
+            var vm = new TeacherWindowViewModel(_teacherLogic, selectId);
+            window = new TeacherWindow();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        #endregion
+
+        public void Transitions(object? obj)
+        {
+            var vm = new TransitionsWindowViewModel(_transitionToTheGroupLogic, _transitionToTheLevelLogic, _groupLogic, _englishLevelLogic);
+            Window window = new Transitions();
+            window.DataContext = vm;
+            window.Show();
+        }
+
+        private bool IsSortTeach = false;
+
+        public void SortTeachersForExperience(object? obj)
+        {
+            IsSortTeach = !IsSortTeach;
+
+            if (IsSortTeach)
+            {
+                Teachers = new ObservableCollection<Teacher>(_teacherLogic.SortedTeachersByExperience());
+            }
+            else
+            {
+                Teachers = new ObservableCollection<Teacher>(_teacherLogic.GetAll());
+            }
+        }
     }
 }

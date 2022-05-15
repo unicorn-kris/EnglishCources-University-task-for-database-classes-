@@ -2,10 +2,11 @@
 using EnglishCources.Logic.Contracts;
 using System;
 using System.IO;
+using System.Windows.Input;
 
 namespace EnglishCources.Presentation.ViewModels
 {
-    internal class EnglishLevelWindowViewModel : NotifyPropertyChangedBase, IWindowViewModel
+    internal class EnglishLevelWindowViewModel : NotifyPropertyChangedBase
     {
 
         private string _letter;
@@ -27,6 +28,8 @@ namespace EnglishCources.Presentation.ViewModels
         private IEnglishLevelLogic _englishLevelLogic;
 
         private int? _entityId;
+
+        public ICommand _saveCommand => new RelayCommand(SaveCommand);
 
         public EnglishLevelWindowViewModel(IEnglishLevelLogic englishLevelLogic, int entityId)
         {
@@ -50,7 +53,7 @@ namespace EnglishCources.Presentation.ViewModels
             _englishLevelLogic = englishLevelLogic;
         }
 
-        public void SaveCommand()
+        public void SaveCommand(object? obj)
         {
             EnglishLevel englishLevel = new EnglishLevel();
 

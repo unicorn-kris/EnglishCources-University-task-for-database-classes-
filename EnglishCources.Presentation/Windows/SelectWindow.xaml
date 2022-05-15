@@ -1,0 +1,17 @@
+﻿<Window x:Class="EnglishCources.Presentation.Windows.SelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
+        mc:Ignorable="d"
+        Title="SelectWindow" Height="149" Width="204">
+    <Grid>
+        <Button Name="Delete" Visibility="{Binding DeleteVisible}" Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="132,85,0,0" VerticalAlignment="Top" FontSize="16" Width="62"/>
+        <Button Name ="Update" Visibility="{Binding UpdateVisible}" Content="Update" Command="{Binding UpdateCommand}" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" FontSize="16" Width="62"/>
+
+        <TextBox  HorizontalAlignment="Left" Margin="41,43,0,0" TextWrapping="Wrap" Text="{Binding EntityId}" VerticalAlignment="Top" Width="120" FontSize="16" PreviewTextInput="TextBox_PreviewTextInput"/>
+        <Label Content="Введите Id объекта" HorizontalAlignment="Left" Margin="0,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.449,0.373"/>
+
+    </Grid>
+</Window>

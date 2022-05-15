@@ -243,7 +243,6 @@ namespace EnglishCources.Presentation.ViewModels
             vm.UpdateVisible = false;
             window.DataContext = vm;
             window.Show();
-
         }
 
         public void DeleteEnglishLevel(object? obj)

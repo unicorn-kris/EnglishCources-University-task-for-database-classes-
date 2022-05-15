@@ -71,7 +71,7 @@ namespace EnglishCources.Presentation.ViewModels
                 try
                 {
                     var item = _entityLogic.GetById(_entityId);
-                    //Close();
+                    ((Window)obj).Close();
                 }
                 catch (Exception ex)
                 {

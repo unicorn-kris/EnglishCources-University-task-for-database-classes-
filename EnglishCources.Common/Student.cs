@@ -20,7 +20,6 @@
             set => OnPropertyChanged(value, ref _id);
         }
 
-
         public int Age
         {
             get => _age;
@@ -44,7 +43,6 @@
             get => _englishLevel;
             set => OnPropertyChanged(value, ref _englishLevel);
         }
-
 
         public Group GroupNumber
         {

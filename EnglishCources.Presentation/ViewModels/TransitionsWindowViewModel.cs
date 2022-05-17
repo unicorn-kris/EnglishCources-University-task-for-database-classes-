@@ -1,6 +1,7 @@
 ﻿using EnglishCources.Common;
 using EnglishCources.Logic.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
@@ -33,7 +34,14 @@ namespace EnglishCources.Presentation.ViewModels
             get => _selectedGroup;
             set {
                 OnPropertyChanged(value, ref _selectedGroup);
-                TransitionToTheGroups = new ObservableCollection<TransitionToTheGroup>(_transitionToTheGroupLogic.GetTransitionToTheGroupsByGroup(_selectedGroup.Id));
+
+                var result = _transitionToTheGroupLogic.GetTransitionToTheGroupsByGroup(SelectedGroup.Id);
+
+                if (result != null)
+                {
+                    TransitionToTheGroups.Clear();
+                    TransitionToTheGroups.AddRange(result);
+                }
             }
         }
 
@@ -45,7 +53,13 @@ namespace EnglishCources.Presentation.ViewModels
             set
             {
                 OnPropertyChanged(value, ref _selectedLevel);
-                TransitionToTheLevels = new ObservableCollection<TransitionToTheLevel>(_transitionToTheLevelLogic.GetTransitionToTheLevelsByLevel(_selectedLevel.Id));
+                var result = _transitionToTheLevelLogic.GetTransitionToTheLevelsByLevel(SelectedLevel.Id);
+
+                if (result != null)
+                {
+                    TransitionToTheLevels.Clear();
+                    TransitionToTheLevels.AddRange(result);
+                }
             }
         }
 
@@ -71,6 +85,18 @@ namespace EnglishCources.Presentation.ViewModels
         }
 
         public ICommand SortGroupsCommand => new RelayCommand(SortGroups);
+
+        public ICommand ReturnCommand => new RelayCommand(Return);
+
+        private void Return(object? obj)
+        {
+
+            TransitionToTheLevels.Clear();
+            TransitionToTheLevels.AddRange(_transitionToTheLevelLogic.GetAll());
+
+            TransitionToTheGroups.Clear();
+            TransitionToTheGroups.AddRange(_transitionToTheGroupLogic.GetAll());
+        }
 
         public void SortGroups(object? obj)
         {

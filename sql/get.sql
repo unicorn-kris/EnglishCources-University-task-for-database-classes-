@@ -410,7 +410,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SelectStudentByGroup
+ALTER PROCEDURE SelectStudentByGroup
 @GroupId INT
 AS
 BEGIN
@@ -420,7 +420,7 @@ BEGIN
 	SELECT g.Id AS GroupId, g.Number AS Number, s.Id AS StudentId
 	FROM Students AS s
 	LEFT JOIN Groups As g ON @GroupId = g.Id
-	WHERE g.IsDelete = 0 
+	WHERE g.IsDelete = 0  AND s.Group_Number = @GroupId
 
 	SELECT e.Id AS EnglishLevelId, e.Number AS Number,  e.Letter AS Letter, s.Id AS StudentId
 	FROM Students AS s
@@ -430,7 +430,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE SelectStudentsByLevel
+ALTER PROCEDURE SelectStudentsByLevel
 @LevelId INT
 AS
 BEGIN
@@ -445,7 +445,7 @@ BEGIN
 	SELECT e.Id AS EnglishLevelId, e.Number AS Number,  e.Letter AS Letter, s.Id AS StudentId
 	FROM Students AS s
 	LEFT JOIN EnglishLevel As e ON @LevelId = e.Id
-	WHERE e.IsDelete = 0
+	WHERE e.IsDelete = 0 AND s.English_Level = @LevelId
 
 END
 GO

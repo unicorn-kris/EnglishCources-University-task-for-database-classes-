@@ -66,16 +66,16 @@
 
         </Menu>
 
-        <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
-            <StackPanel Orientation="Horizontal">
+        <DockPanel Grid.Row="1" Grid.Column="0"  Margin="5" >
+            <DockPanel DockPanel.Dock="Top">
                 <Label Content="Учителя" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="14"/>
                 <Button Command="{Binding SortTeachersForExperienceCommand}" Content="Сортировка по стажу" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </StackPanel>
-            <DataGrid ItemsSource="{Binding Teachers}"/>
-        </StackPanel>
+            </DockPanel>
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding Teachers}"/>
+        </DockPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
-            <StackPanel Orientation="Horizontal">
+        <DockPanel Grid.Row="2" Grid.Column="0"  Margin="5">
+            <DockPanel DockPanel.Dock="Top">
                 <Label Content="Группы" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню" ItemsSource="{Binding LevelsGroups}" SelectedValue="{Binding LevelGroups}" >
                     <ComboBox.ItemTemplate>
@@ -84,18 +84,18 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-            </StackPanel>
-            <DataGrid ItemsSource="{Binding Groups}" AutoGenerateColumns="False">
+            </DockPanel>
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding Groups}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
                     <DataGridTextColumn Header="English Level" Binding="{Binding MinLevel, Converter={converters:EnglishLevelConverter}}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="0"  Margin="5">
-            <StackPanel Orientation="Horizontal">
+        <DockPanel Grid.Row="3" Grid.Column="0"  Margin="5">
+            <DockPanel DockPanel.Dock="Top">
                 <Label Content="Студенты" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Text="По уровню" Height="22" ItemsSource="{Binding LevelsStudent}" SelectedValue="{Binding LevelStudent}" >
                     <ComboBox.ItemTemplate>
@@ -112,21 +112,23 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
-            </StackPanel>
-            <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="False">
+            </DockPanel>
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding Students}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
                     <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
+                    <DataGridTextColumn Header="Group" Binding="{Binding GroupNumber.Number}"/>
                     <DataGridTextColumn Header="English Level" Binding="{Binding EnglishLevel, Converter={converters:EnglishLevelConverter}}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1"  Margin="5">
-            <Label Content="Занятия" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-            <DataGrid ItemsSource="{Binding Lessons}" AutoGenerateColumns="False">
+        <DockPanel Grid.Row="1" Grid.Column="1"  Margin="5">
+            <Label DockPanel.Dock="Top" Content="Занятия" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
+
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding Lessons}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Day" Binding="{Binding Day}"/>
@@ -135,22 +137,24 @@
                     <DataGridTextColumn Header="Book" Binding="{Binding Book, Converter={converters:BookConverter}}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1"  Margin="5">
-            <Label Content="Экзамены" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-            <DataGrid ItemsSource="{Binding Exams}" AutoGenerateColumns="False">
+        <DockPanel Grid.Row="2" Grid.Column="1"  Margin="5">
+            <Label DockPanel.Dock="Top" Content="Экзамены" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
+
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding Exams}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
                     <DataGridTextColumn Header="Group Number" Binding="{Binding Group.Number}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </DockPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="1"  Margin="5">
-            <Label Content="Результаты" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-            <DataGrid ItemsSource="{Binding ExamResults}" AutoGenerateColumns="False">
+        <DockPanel Grid.Row="3" Grid.Column="1"  Margin="5">
+            <Label DockPanel.Dock="Top" Content="Результаты" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
+
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding ExamResults}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                     <DataGridTextColumn Header="Exam Id" Binding="{Binding Exam, Converter={converters:ExamConverter}}"/>
@@ -158,7 +162,7 @@
                     <DataGridTextColumn Header="Student" Binding="{Binding Student, Converter={converters:StudentConverter}}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </DockPanel>
 
     </Grid>
 </Window>

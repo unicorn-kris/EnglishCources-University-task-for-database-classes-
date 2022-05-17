@@ -178,6 +178,8 @@ namespace EnglishCources.Repository.Implements
                         };
                     }
 
+                    reader.NextResult();
+
                     while (reader.Read())
                     {
                         student.EnglishLevel = new EnglishLevel()
@@ -200,7 +202,7 @@ namespace EnglishCources.Repository.Implements
             {
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "SelectStudentsByGroup";
+                cmd.CommandText = "SelectStudentByGroup";
                 cmd.Parameters.AddWithValue("GroupId", groupId);
 
                 connection.Open();
@@ -236,6 +238,7 @@ namespace EnglishCources.Repository.Implements
                         }
                     }
 
+                    reader.NextResult();
 
                     while (reader.Read())
                     {
@@ -301,6 +304,8 @@ namespace EnglishCources.Repository.Implements
                             student.GroupNumber = group;
                         }
                     }
+                    reader.NextResult();
+
 
                     while (reader.Read())
                     {

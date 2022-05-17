@@ -17,35 +17,58 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Menu>
+            <MenuItem Header="Обновить" Command="{Binding ReturnCommand}"/>
+        </Menu>
+
         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
             <StackPanel Orientation="Horizontal">
                 <Label Content="По группам" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="14"/>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе" Margin="5" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}"/>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе" Margin="5" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={converters:GroupConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="По дате" Command="{Binding SortGroupsCommand}" Margin="5"/>
 
             </StackPanel>
-            <DataGrid ItemsSource="{Binding TransitionToTheGroups}" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="Group Number" Binding="{Binding GroupNew.Number}"/>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <ContentControl>
+                <DataGrid ItemsSource="{Binding TransitionToTheGroups}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Group Number" Binding="{Binding GroupNew.Number}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Student" Binding="{Binding Student, Converter={converters:StudentConverter}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ContentControl>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
             <StackPanel Orientation="Horizontal">
                 <Label Content="По уровням" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню" Margin="5" ItemsSource="{Binding Levels}" SelectedValue="{Binding SelectedLevel}"/>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню" Margin="5" ItemsSource="{Binding Levels}" SelectedValue="{Binding SelectedLevel}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={converters:EnglishLevelConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="По дате" Command="{Binding SortLevelsCommand}" Margin="5"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding TransitionToTheLevels}" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                    <DataGridTextColumn Header="English Level" Binding="{Binding LevelNew, Converter={converters:EnglishLevelConverter}}"/>
-                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+
+            <ContentControl>
+                <DataGrid ItemsSource="{Binding TransitionToTheLevels}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="English Level" Binding="{Binding LevelNew, Converter={converters:EnglishLevelConverter}}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Student" Binding="{Binding Student, Converter={converters:StudentConverter}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ContentControl>
         </StackPanel>
 
     </Grid>

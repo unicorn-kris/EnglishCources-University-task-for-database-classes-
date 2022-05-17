@@ -26,7 +26,7 @@ namespace EnglishCources.Repository.Implements
                 cmd.CommandText = "AddBook";
                 cmd.Parameters.AddWithValue("Title", entity.Title);
                 cmd.Parameters.AddWithValue("Author", entity.Author);
-                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel.ID);
+                cmd.Parameters.AddWithValue("EnglishLevel", entity.EnglishLevel.Id);
 
                 var id = new SqlParameter
                 {
@@ -80,21 +80,24 @@ namespace EnglishCources.Repository.Implements
         {
             List<Book> books = new List<Book>();
 
-            using(var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "SelectAllBooks";
-                
+
                 connection.Open();
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        books.Add(new Book() { ID = (int)reader["Id"],
-                        Author = reader["Author"].ToString(),
-                        Title = reader["Title"].ToString()});
+                        books.Add(new Book()
+                        {
+                            Id = (int)reader["Id"],
+                            Author = reader["Author"].ToString(),
+                            Title = reader["Title"].ToString()
+                        });
                     }
 
                     reader.NextResult();
@@ -103,12 +106,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel level = new EnglishLevel();
 
-                        level.ID = (int)reader["Id"];
+                        level.Id = (int)reader["Id"];
                         level.Number = (int)reader["Number"];
                         level.Letter = (string)reader["Letter"];
                         int bookId = (int)reader["BookId"];
 
-                        Book book = books.FirstOrDefault(b => b.ID == bookId);
+                        Book book = books.FirstOrDefault(b => b.Id == bookId);
 
                         if (book != null)
                         {
@@ -139,7 +142,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         books.Add(new Book()
                         {
-                            ID = (int)reader["Id"],
+                            Id = (int)reader["Id"],
                             Author = reader["Author"].ToString(),
                             Title = reader["Title"].ToString()
                         });
@@ -151,12 +154,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel level = new EnglishLevel();
 
-                        level.ID = (int)reader["Id"];
+                        level.Id = (int)reader["Id"];
                         level.Number = (int)reader["Number"];
                         level.Letter = (string)reader["Letter"];
                         int bookId = (int)reader["BookId"];
 
-                        Book book = books.FirstOrDefault(b => b.ID == bookId);
+                        Book book = books.FirstOrDefault(b => b.Id == bookId);
 
                         if (book != null)
                         {
@@ -186,7 +189,7 @@ namespace EnglishCources.Repository.Implements
                     while (reader.Read())
                     {
 
-                        book.ID = (int)reader["Id"];
+                        book.Id = (int)reader["Id"];
                         book.Author = reader["Author"].ToString();
                         book.Title = reader["Title"].ToString();
                     }
@@ -197,7 +200,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel level = new EnglishLevel();
 
-                        level.ID = (int)reader["Id"];
+                        level.Id = (int)reader["Id"];
                         level.Number = (int)reader["Number"];
                         level.Letter = (string)reader["Letter"];
 

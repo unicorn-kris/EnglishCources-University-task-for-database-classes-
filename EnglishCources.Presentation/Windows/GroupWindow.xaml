@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:EnglishCources.Presentation.Converters"
         xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
         mc:Ignorable="d"
         Title="GroupWindow" Height="220" Width="300">
@@ -16,7 +17,15 @@
 
         <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="115,148,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
         <Label Content="Min Level" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding EnglishLevels}" SelectedValue="{Binding EnglishLevel}" Margin="109,13,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+
+        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding EnglishLevels}" SelectedValue="{Binding EnglishLevel}" Margin="109,13,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ., Converter={converters:EnglishLevelConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
         <Label Content="Teacher" HorizontalAlignment="Left" Margin="27,55,0,0" VerticalAlignment="Top" FontSize="14"/>
         <ComboBox Grid.ColumnSpan="2" ItemsSource="{Binding Teachers}" SelectedValue="{Binding Teacher}" HorizontalAlignment="Left" Margin="109,58,0,0" VerticalAlignment="Top" Width="120"/>
 

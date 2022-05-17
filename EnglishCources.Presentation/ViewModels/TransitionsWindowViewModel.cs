@@ -18,7 +18,6 @@ namespace EnglishCources.Presentation.ViewModels
 
         private IEnglishLevelLogic _englishLevelLogic;
 
-
         public ObservableCollection<TransitionToTheGroup> TransitionToTheGroups { get; set; }
 
         public ObservableCollection<TransitionToTheLevel> TransitionToTheLevels { get; set; }
@@ -34,7 +33,7 @@ namespace EnglishCources.Presentation.ViewModels
             get => _selectedGroup;
             set {
                 OnPropertyChanged(value, ref _selectedGroup);
-                TransitionToTheGroups = new ObservableCollection<TransitionToTheGroup>(_transitionToTheGroupLogic.GetTransitionToTheGroupsByGroup(_selectedGroup.ID));
+                TransitionToTheGroups = new ObservableCollection<TransitionToTheGroup>(_transitionToTheGroupLogic.GetTransitionToTheGroupsByGroup(_selectedGroup.Id));
             }
         }
 
@@ -46,7 +45,7 @@ namespace EnglishCources.Presentation.ViewModels
             set
             {
                 OnPropertyChanged(value, ref _selectedLevel);
-                TransitionToTheLevels = new ObservableCollection<TransitionToTheLevel>(_transitionToTheLevelLogic.GetTransitionToTheLevelsByLevel(_selectedLevel.ID));
+                TransitionToTheLevels = new ObservableCollection<TransitionToTheLevel>(_transitionToTheLevelLogic.GetTransitionToTheLevelsByLevel(_selectedLevel.Id));
             }
         }
 

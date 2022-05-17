@@ -25,8 +25,8 @@ namespace EnglishCources.Repository.Implements
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddGroup";
                 cmd.Parameters.AddWithValue("Number", entity.Number);
-                cmd.Parameters.AddWithValue("Teacher", entity.Teacher.ID);
-                cmd.Parameters.AddWithValue("MinLevel", entity.MinLevel.ID);
+                cmd.Parameters.AddWithValue("Teacher", entity.Teacher.Id);
+                cmd.Parameters.AddWithValue("MinLevel", entity.MinLevel.Id);
 
                 var id = new SqlParameter
                 {
@@ -94,7 +94,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         groups.Add(new Group()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Number = reader.GetInt32("Number")
                         });
                         
@@ -106,14 +106,14 @@ namespace EnglishCources.Repository.Implements
                     {
                         Teacher teacher = new Teacher()
                         {
-                            ID = reader.GetInt32("TeacherId"),
+                            Id = reader.GetInt32("TeacherId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
                             Experience = reader.GetInt32("Experience")
                         };
 
-                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+                        Group group = groups.FirstOrDefault(x => x.Id == reader.GetInt32("GroupId"));
 
                         if (group != null)
                         {
@@ -127,12 +127,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel englishLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+                        Group group = groups.FirstOrDefault(x => x.Id == reader.GetInt32("GroupId"));
 
                         if (group != null)
                         {
@@ -161,7 +161,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        group.ID = reader.GetInt32("Id");
+                        group.Id = reader.GetInt32("Id");
                         group.Number = reader.GetInt32("Number");
                     }
 
@@ -171,7 +171,7 @@ namespace EnglishCources.Repository.Implements
                     {
                          group.Teacher = new Teacher()
                         {
-                            ID = reader.GetInt32("TeacherId"),
+                            Id = reader.GetInt32("TeacherId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
@@ -186,7 +186,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         group.MinLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
@@ -214,7 +214,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        group.ID = reader.GetInt32("Id");
+                        group.Id = reader.GetInt32("Id");
                         group.Number = reader.GetInt32("Number");
                     }
 
@@ -224,7 +224,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         group.Teacher = new Teacher()
                         {
-                            ID = reader.GetInt32("TeacherId"),
+                            Id = reader.GetInt32("TeacherId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
@@ -239,7 +239,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         group.MinLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
@@ -269,7 +269,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         groups.Add(new Group()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Number = reader.GetInt32("Number")
                         });
 
@@ -281,14 +281,14 @@ namespace EnglishCources.Repository.Implements
                     {
                         Teacher teacher = new Teacher()
                         {
-                            ID = reader.GetInt32("TeacherId"),
+                            Id = reader.GetInt32("TeacherId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
                             Experience = reader.GetInt32("Experience")
                         };
 
-                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+                        Group group = groups.FirstOrDefault(x => x.Id == reader.GetInt32("GroupId"));
 
                         if (group != null)
                         {
@@ -302,12 +302,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel englishLevelAdded = new EnglishLevel()
                         {
-                            ID = englishLevel,
+                            Id = englishLevel,
                             Letter = reader.GetString("Letter"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        Group group = groups.FirstOrDefault(x => x.ID == reader.GetInt32("GroupId"));
+                        Group group = groups.FirstOrDefault(x => x.Id == reader.GetInt32("GroupId"));
 
                         if (group != null)
                         {

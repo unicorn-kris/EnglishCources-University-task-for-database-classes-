@@ -24,8 +24,8 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddExamResults";
-                cmd.Parameters.AddWithValue("Student", entity.Student.ID);
-                cmd.Parameters.AddWithValue("Exam", entity.Exam.ID);
+                cmd.Parameters.AddWithValue("Student", entity.Student.Id);
+                cmd.Parameters.AddWithValue("Exam", entity.Exam.Id);
                 cmd.Parameters.AddWithValue("Mark", entity.Mark);
 
                 var id = new SqlParameter
@@ -94,7 +94,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         examsRes.Add(new ExamResults()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Mark = reader.GetInt32("Mark")
                         });
                     }
@@ -105,11 +105,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Exam exam = new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         };
 
-                        var exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        var exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
                         
                         if (exRes != null)
                         {
@@ -123,11 +123,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        var exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        var exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -141,12 +141,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Student student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
 
-                        ExamResults exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        ExamResults exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -175,7 +175,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        examResult.ID = reader.GetInt32("Id");
+                        examResult.Id = reader.GetInt32("Id");
                         examResult.Mark = reader.GetInt32("Mark");
                     }
 
@@ -185,7 +185,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         examResult.Exam = new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         };
 
@@ -198,7 +198,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         examResult.Exam.Group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
@@ -210,7 +210,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         examResult.Student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
@@ -240,7 +240,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         examsRes.Add(new ExamResults()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Mark = reader.GetInt32("Mark")
                         });
                     }
@@ -252,11 +252,11 @@ namespace EnglishCources.Repository.Implements
 
                         Exam exam = new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         };
 
-                        var exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        var exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -270,11 +270,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        var exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        var exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -288,12 +288,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Student student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
 
-                        ExamResults exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        ExamResults exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -324,7 +324,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         examsRes.Add(new ExamResults()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Mark = reader.GetInt32("Mark")
                         });
                     }
@@ -336,11 +336,11 @@ namespace EnglishCources.Repository.Implements
 
                         Exam exam = new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         };
 
-                        var exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        var exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -354,11 +354,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        var exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        var exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {
@@ -372,12 +372,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Student student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
 
-                        ExamResults exRes = examsRes.FirstOrDefault(x => x.ID == reader.GetInt32("ExamResultsId"));
+                        ExamResults exRes = examsRes.FirstOrDefault(x => x.Id == reader.GetInt32("ExamResultsId"));
 
                         if (exRes != null)
                         {

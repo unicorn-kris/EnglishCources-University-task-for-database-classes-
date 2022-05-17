@@ -24,10 +24,10 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddLesson";
-                cmd.Parameters.AddWithValue("Book", entity.Book.ID);
+                cmd.Parameters.AddWithValue("Book", entity.Book.Id);
                 cmd.Parameters.AddWithValue("Day", entity.Day);
                 cmd.Parameters.AddWithValue("Hour", entity.Hour);
-                cmd.Parameters.AddWithValue("Group", entity.Group.ID);
+                cmd.Parameters.AddWithValue("Group", entity.Group.Id);
 
                 var id = new SqlParameter
                 {
@@ -95,7 +95,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         lessons.Add(new Lesson()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Day = reader.GetDateTime("Day"),
                             Hour = reader.GetInt32("Hour")
                         });
@@ -108,11 +108,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+                        var lesson = lessons.FirstOrDefault(x => x.Id == reader.GetInt32("LessonId"));
 
                         if (lesson != null)
                         {
@@ -126,12 +126,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Book book = new Book()
                         {
-                            ID = reader.GetInt32("BookId"),
+                            Id = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
 
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+                        var lesson = lessons.FirstOrDefault(x => x.Id == reader.GetInt32("LessonId"));
 
                         if (lesson != null)
                         {
@@ -161,7 +161,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        lesson.ID = reader.GetInt32("Id");
+                        lesson.Id = reader.GetInt32("Id");
                         lesson.Day = reader.GetDateTime("Day");
                         lesson.Hour = reader.GetInt32("Hour");
 
@@ -173,7 +173,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         lesson.Group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
@@ -185,7 +185,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         lesson.Book = new Book()
                         {
-                            ID = reader.GetInt32("BookId"),
+                            Id = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
@@ -216,7 +216,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         lessons.Add(new Lesson()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Day = reader.GetDateTime("Day"),
                             Hour = reader.GetInt32("Hour")
                         });
@@ -229,11 +229,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+                        var lesson = lessons.FirstOrDefault(x => x.Id == reader.GetInt32("LessonId"));
 
                         if (lesson != null)
                         {
@@ -247,12 +247,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Book book = new Book()
                         {
-                            ID = reader.GetInt32("BookId"),
+                            Id = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
 
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+                        var lesson = lessons.FirstOrDefault(x => x.Id == reader.GetInt32("LessonId"));
 
                         if (lesson != null)
                         {
@@ -284,7 +284,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         lessons.Add(new Lesson()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Day = reader.GetDateTime("Day"),
                             Hour = reader.GetInt32("Hour")
                         });
@@ -297,11 +297,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+                        var lesson = lessons.FirstOrDefault(x => x.Id == reader.GetInt32("LessonId"));
 
                         if (lesson != null)
                         {
@@ -315,12 +315,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Book book = new Book()
                         {
-                            ID = reader.GetInt32("BookId"),
+                            Id = reader.GetInt32("BookId"),
                             Author = reader.GetString("Author"),
                             Title = reader.GetString("Title")
                         };
 
-                        var lesson = lessons.FirstOrDefault(x => x.ID == reader.GetInt32("LessonId"));
+                        var lesson = lessons.FirstOrDefault(x => x.Id == reader.GetInt32("LessonId"));
 
                         if (lesson != null)
                         {

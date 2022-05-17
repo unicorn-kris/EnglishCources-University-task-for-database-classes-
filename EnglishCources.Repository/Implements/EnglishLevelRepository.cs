@@ -93,7 +93,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         englishLevels.Add(new EnglishLevel()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         });
@@ -121,7 +121,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        englishLevel.ID = reader.GetInt32("Id");
+                        englishLevel.Id = reader.GetInt32("Id");
                         englishLevel.Number = reader.GetInt32("Number");
                         englishLevel.Letter = reader.GetString("Letter");
                     }
@@ -149,7 +149,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         englishLevels.Add(new EnglishLevel()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         });

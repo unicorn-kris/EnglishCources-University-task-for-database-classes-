@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
+        xmlns:converters="clr-namespace:EnglishCources.Presentation.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisibility"/>
+    </Window.Resources>
+    
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -20,63 +24,65 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ToolBar HorizontalAlignment="Left" Height="44" VerticalAlignment="Top" Width="997" Grid.ColumnSpan="2">
-            <ComboBox x:Name="CreateNew" HorizontalAlignment="Left" Width="120" Text="Создать новый объект" Margin="1,0,5,0">
-                <Button Content ="Add book" Command="{Binding AddBookCommand}"/>
-                <Button Content ="Add english level" Command="{Binding AddEnglishLevelCommand}"/>
-                <Button Content ="Add exam result" Command="{Binding AddExamResultsCommand}"/>
-                <Button Content ="Add exam" Command="{Binding AddExamCommand}"/>
-                <Button Content ="Add group" Command="{Binding AddGroupCommand}"/>
-                <Button Content ="Add lesson" Command="{Binding AddLessonCommand}"/>
-                <Button Content ="Add student" Command="{Binding AddStudentCommand}"/>
-                <Button Content ="Add teacher" Command="{Binding AddTeacherCommand}"/>
-            </ComboBox>
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="Создать новый объект">
+                <MenuItem Header="Add book" Command="{Binding AddBookCommand}"/>
+                <MenuItem Header="Add english level" Command="{Binding AddEnglishLevelCommand}"/>
+                <MenuItem Header="Add exam result" Command="{Binding AddExamResultsCommand}"/>
+                <MenuItem Header="Add exam" Command="{Binding AddExamCommand}"/>
+                <MenuItem Header="Add group" Command="{Binding AddGroupCommand}"/>
+                <MenuItem Header="Add lesson" Command="{Binding AddLessonCommand}"/>
+                <MenuItem Header="Add student" Command="{Binding AddStudentCommand}"/>
+                <MenuItem Header="Add teacher" Command="{Binding AddTeacherCommand}"/>
+            </MenuItem>
 
-            <ComboBox x:Name="Delete" HorizontalAlignment="Left" Width="120" Text="Удалить объект" Margin="1,0,5,0">
-                <Button Content ="Delete book" Command="{Binding DeleteBookCommand}"/>
-                <Button Content ="Delete english level" Command="{Binding DeleteEnglishLevelCommand}"/>
-                <Button Content ="Delete exam result" Command="{Binding DeleteExamResultsCommand}"/>
-                <Button Content ="Delete exam" Command="{Binding DeleteExamCommand}"/>
-                <Button Content ="Delete group" Command="{Binding DeleteGroupCommand}"/>
-                <Button Content ="Delete lesson" Command="{Binding DeleteLessonCommand}"/>
-                <Button Content ="Delete student" Command="{Binding DeleteStudentCommand}"/>
-                <Button Content ="Delete teacher" Command="{Binding DeleteTeacherCommand}"/>
-            </ComboBox>
+            <MenuItem Header="Удалить объект" Visibility="{Binding IsAdmin, Converter={StaticResource boolToVisibility}}">
+                <MenuItem Header="Delete book" Command="{Binding DeleteBookCommand}"/>
+                <MenuItem Header="Delete english level" Command="{Binding DeleteEnglishLevelCommand}"/>
+                <MenuItem Header="Delete exam result" Command="{Binding DeleteExamResultsCommand}"/>
+                <MenuItem Header="Delete exam" Command="{Binding DeleteExamCommand}"/>
+                <MenuItem Header="Delete group" Command="{Binding DeleteGroupCommand}"/>
+                <MenuItem Header="Delete lesson" Command="{Binding DeleteLessonCommand}"/>
+                <MenuItem Header="Delete student" Command="{Binding DeleteStudentCommand}"/>
+                <MenuItem Header="Delete teacher" Command="{Binding DeleteTeacherCommand}"/>
+            </MenuItem>
 
-            <ComboBox x:Name="Update" HorizontalAlignment="Left" Width="120" Text="Изменить объект" Margin="1,0,5,0">
-                <Button Content ="Update book" Command="{Binding UpdateBookCommand}"/>
-                <Button Content ="Update english level" Command="{Binding UpdateEnglishLevelCommand}"/>
-                <Button Content ="Update exam result" Command="{Binding UpdateExamResultsCommand}"/>
-                <Button Content ="Update exam" Command="{Binding UpdateExamCommand}"/>
-                <Button Content ="Update group" Command="{Binding UpdateGroupCommand}"/>
-                <Button Content ="Update lesson" Command="{Binding UpdateLessonCommand}"/>
-                <Button Content ="Update student" Command="{Binding UpdateStudentCommand}"/>
-                <Button Content ="Update teacher" Command="{Binding UpdateTeacherCommand}"/>
-            </ComboBox>
+            <MenuItem Header="Изменить объект">
+                <MenuItem Header="Update book" Command="{Binding UpdateBookCommand}"/>
+                <MenuItem Header="Update english level" Command="{Binding UpdateEnglishLevelCommand}"/>
+                <MenuItem Header="Update exam result" Command="{Binding UpdateExamResultsCommand}"/>
+                <MenuItem Header="Update exam" Command="{Binding UpdateExamCommand}"/>
+                <MenuItem Header="Update group" Command="{Binding UpdateGroupCommand}"/>
+                <MenuItem Header="Update lesson" Command="{Binding UpdateLessonCommand}"/>
+                <MenuItem Header="Update student" Command="{Binding UpdateStudentCommand}"/>
+                <MenuItem Header="Update teacher" Command="{Binding UpdateTeacherCommand}"/>
+            </MenuItem>
 
-            <ComboBox x:Name="Statistic" HorizontalAlignment="Left" Width="120" Text="Статистика" Margin="1,0,5,0">
-                <Button Content ="Transitions To The Groups By Group" Command="{Binding TransitionToTheGroupsByGroupCommand}"/>
-                <Button Content ="Transitions To The Groups By Date" Command="{Binding TransitionToTheGroupsByDateCommand}"/>
-                <Button Content ="Transitions To The Levels By Level" Command="{Binding TransitionToTheLevelsByLevelCommand}"/>
-                <Button Content ="Transitions To The Levels By Date" Command="{Binding TransitionToTheLevelsByDateCommand}"/>
-            </ComboBox>
-        </ToolBar>
+            <MenuItem Header="Transitions" Command="{Binding TransitionsCommand}"/>
+
+            <MenuItem Header="Admin Mode" Command="{Binding AdminCommand}"/>
+        </Menu>
 
         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Учителя" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="14"/>
                 <Button Command="{Binding SortTeachersForExperienceCommand}" Content="Сортировка по стажу" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Teachers}" />
+            <DataGrid ItemsSource="{Binding Teachers}"/>
         </StackPanel>
-
 
         <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Группы" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Groups}" />
+            <DataGrid ItemsSource="{Binding Groups}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Number" Binding="{Binding Number}"/>
+                    <DataGridTextColumn Header="English Level" Binding="{Binding MinLevel, Converter={converters:EnglishLevelConverter}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="0"  Margin="5">
@@ -85,25 +91,52 @@
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Text="По уровню" Height="22"/>
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе"/>
             </StackPanel>
-            <DataGrid ItemsSource="{Binding Students}" />
+            <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Surname" Binding="{Binding Surname}"/>
+                    <DataGridTextColumn Header="Age" Binding="{Binding Age}"/>
+                    <DataGridTextColumn Header="English Level" Binding="{Binding EnglishLevel, Converter={converters:EnglishLevelConverter}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
-
 
         <StackPanel Grid.Row="1" Grid.Column="1"  Margin="5">
             <Label Content="Занятия" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-            <DataGrid ItemsSource="{Binding Lessons}"/>
+            <DataGrid ItemsSource="{Binding Lessons}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Day" Binding="{Binding Day}"/>
+                    <DataGridTextColumn Header="Hour" Binding="{Binding Hour}"/>
+                    <DataGridTextColumn Header="Group Number" Binding="{Binding Group.Number}"/>
+                    <DataGridTextColumn Header="Book" Binding="{Binding Book, Converter={converters:BookConverter}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1"  Margin="5">
             <Label Content="Экзамены" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-            <DataGrid ItemsSource="{Binding Exams}"/>
+            <DataGrid ItemsSource="{Binding Exams}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                    <DataGridTextColumn Header="Group Number" Binding="{Binding Group.Number}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1"  Margin="5">
             <Label Content="Результаты" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"/>
-            <DataGrid ItemsSource="{Binding ExamResults}"/>
+            <DataGrid ItemsSource="{Binding ExamResults}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Exam Id" Binding="{Binding Exam, Converter={converters:ExamConverter}}"/>
+                    <DataGridTextColumn Header="Mark" Binding="{Binding Mark}"/>
+                    <DataGridTextColumn Header="Student" Binding="{Binding Student, Converter={converters:StudentConverter}}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
-       
 
     </Grid>
 </Window>

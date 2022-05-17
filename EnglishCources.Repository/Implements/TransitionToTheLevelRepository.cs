@@ -24,9 +24,9 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddTransitionToTheLevel";
-                cmd.Parameters.AddWithValue("Student", entity.Student.ID);
+                cmd.Parameters.AddWithValue("Student", entity.Student.Id);
                 cmd.Parameters.AddWithValue("Date", entity.Date);
-                cmd.Parameters.AddWithValue("LevelNew", entity.LevelNew.ID);
+                cmd.Parameters.AddWithValue("LevelNew", entity.LevelNew.Id);
 
                 var id = new SqlParameter
                 {
@@ -94,7 +94,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         transitions.Add(new TransitionToTheLevel()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         });
                     }
@@ -105,12 +105,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel level = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         };
 
-                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+                        var transition = transitions.FirstOrDefault(x => x.Id == reader.GetInt32("TransitionId"));
 
                         if (transition != null)
                         {
@@ -124,12 +124,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Student student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
 
-                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+                        var transition = transitions.FirstOrDefault(x => x.Id == reader.GetInt32("TransitionId"));
 
                         if (transition != null)
                         {
@@ -158,7 +158,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        transition.ID = reader.GetInt32("Id");
+                        transition.Id = reader.GetInt32("Id");
                         transition.Date = reader.GetDateTime("Date");
                     }
 
@@ -168,7 +168,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         transition.LevelNew = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         };
@@ -180,7 +180,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         transition.Student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
@@ -209,7 +209,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         transitions.Add(new TransitionToTheLevel()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         });
                     }
@@ -220,12 +220,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel level = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         };
 
-                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+                        var transition = transitions.FirstOrDefault(x => x.Id == reader.GetInt32("TransitionId"));
 
                         if (transition != null)
                         {
@@ -239,12 +239,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Student student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
 
-                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+                        var transition = transitions.FirstOrDefault(x => x.Id == reader.GetInt32("TransitionId"));
 
                         if (transition != null)
                         {
@@ -274,7 +274,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         transitions.Add(new TransitionToTheLevel()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         });
                     }
@@ -285,12 +285,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         EnglishLevel level = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("LevelId"),
+                            Id = reader.GetInt32("LevelId"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         };
 
-                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+                        var transition = transitions.FirstOrDefault(x => x.Id == reader.GetInt32("TransitionId"));
 
                         if (transition != null)
                         {
@@ -304,12 +304,12 @@ namespace EnglishCources.Repository.Implements
                     {
                         Student student = new Student()
                         {
-                            ID = reader.GetInt32("StudentId"),
+                            Id = reader.GetInt32("StudentId"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname")
                         };
 
-                        var transition = transitions.FirstOrDefault(x => x.ID == reader.GetInt32("TransitionId"));
+                        var transition = transitions.FirstOrDefault(x => x.Id == reader.GetInt32("TransitionId"));
 
                         if (transition != null)
                         {

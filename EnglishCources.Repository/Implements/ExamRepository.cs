@@ -24,7 +24,7 @@ namespace EnglishCources.Repository.Implements
                 var cmd = connection.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AddExam";
-                cmd.Parameters.AddWithValue("Group", entity.Group.ID);
+                cmd.Parameters.AddWithValue("Group", entity.Group.Id);
                 cmd.Parameters.AddWithValue("Date", entity.Date);
 
                 var id = new SqlParameter
@@ -92,7 +92,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         exams.Add(new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         });
                     }
@@ -103,11 +103,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        Exam exam = exams.FirstOrDefault(x => x.ID == reader.GetInt32("ExamId"));
+                        Exam exam = exams.FirstOrDefault(x => x.Id == reader.GetInt32("ExamId"));
 
                         if (exam != null)
                         {
@@ -136,7 +136,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        exam.ID = reader.GetInt32("Id");
+                        exam.Id = reader.GetInt32("Id");
                         exam.Date = reader.GetDateTime("Date");
                     }
 
@@ -146,7 +146,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         exam.Group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
                     }
@@ -157,7 +157,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         exam.Group.MinLevel = new EnglishLevel()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number"),
                             Letter = reader.GetString("Letter")
                         };
@@ -201,7 +201,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         exams.Add(new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         });
                     }
@@ -212,11 +212,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        Exam exam = exams.FirstOrDefault(x => x.ID == reader.GetInt32("ExamId"));
+                        Exam exam = exams.FirstOrDefault(x => x.Id == reader.GetInt32("ExamId"));
 
                         if (exam != null)
                         {
@@ -247,7 +247,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         exams.Add(new Exam()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Date = reader.GetDateTime("Date")
                         });
                     }
@@ -258,11 +258,11 @@ namespace EnglishCources.Repository.Implements
                     {
                         Group group = new Group()
                         {
-                            ID = reader.GetInt32("GroupId"),
+                            Id = reader.GetInt32("GroupId"),
                             Number = reader.GetInt32("Number")
                         };
 
-                        Exam exam = exams.FirstOrDefault(x => x.ID == reader.GetInt32("ExamId"));
+                        Exam exam = exams.FirstOrDefault(x => x.Id == reader.GetInt32("ExamId"));
 
                         if (exam != null)
                         {

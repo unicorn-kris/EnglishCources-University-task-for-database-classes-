@@ -1,6 +1,7 @@
 ﻿using EnglishCources.Common;
 using EnglishCources.Logic.Contracts;
 using EnglishCources.Presentation.Windows;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -81,6 +82,8 @@ namespace EnglishCources.Presentation.ViewModels
 
             TransitionsCommand = new RelayCommand(Transitions);
 
+            AdminCommand = new RelayCommand(Admin);
+
             SortTeachersForExperienceCommand = new RelayCommand(SortTeachersForExperience);
 
             _bookLogic = bookLogic;
@@ -111,10 +114,12 @@ namespace EnglishCources.Presentation.ViewModels
         public ObservableCollection<Group> Groups { get; set; }
 
         public ObservableCollection<EnglishLevel> EnglishLevels { get; set; }
+
         #endregion
 
         #region commands
 
+        public ICommand AdminCommand { get; }
         public ICommand AddBookCommand { get; }
 
         public ICommand AddEnglishLevelCommand { get; }
@@ -531,7 +536,6 @@ namespace EnglishCources.Presentation.ViewModels
 
             if (IsSortTeach)
             {
-
                 Teachers.Clear();
                 Teachers.AddRange(_teacherLogic.SortedTeachersByExperience());
             }
@@ -540,6 +544,24 @@ namespace EnglishCources.Presentation.ViewModels
                 Teachers.Clear();
                 Teachers.AddRange(_teacherLogic.GetAll());
             }
+        }
+
+        private bool _isAdmin;
+
+        public bool IsAdmin
+        {
+            get => _isAdmin;
+            set => OnPropertyChanged(value, ref _isAdmin);
+        }
+
+        private void Admin(object? obj)
+        {
+            var vm = new AdminWindowViewModel();
+            Window window = new AdminWindow();
+            window.DataContext = vm;
+            window.ShowDialog();
+
+            IsAdmin = vm.IsAdmin;
         }
     }
 

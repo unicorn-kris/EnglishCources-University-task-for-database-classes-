@@ -4,6 +4,10 @@ namespace EnglishCources.Common
 {
     public class Book : NotifyPropertyChangedBase
     {
+        public Book()
+        {
+
+        }
         private int _id;
 
         private string _title;
@@ -12,7 +16,7 @@ namespace EnglishCources.Common
 
         private EnglishLevel _englishLevel;
 
-        public int ID {
+        public int Id {
             get => _id;
             set => OnPropertyChanged(value, ref _id);
         }

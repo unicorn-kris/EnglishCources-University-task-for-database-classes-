@@ -3,39 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
+        xmlns:converters="clr-namespace:EnglishCources.Presentation.Converters"
         mc:Ignorable="d"
         Title="Transitions" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-    <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="*"/>
-        <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-    <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
-        <StackPanel Orientation="Horizontal">
-            <Label Content="По группам" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="14"/>
+        <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="По группам" HorizontalAlignment="Center"  VerticalAlignment="Top" FontSize="14"/>
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе" Margin="5" ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}"/>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="По дате" Command="{Binding SortGroupsCommand}" Margin="5"/>
+
+            </StackPanel>
+            <DataGrid ItemsSource="{Binding TransitionToTheGroups}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Group Number" Binding="{Binding GroupNew.Number}"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding TransitionToTheGroups}" />
-    </StackPanel>
 
-
-    <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
-        <StackPanel Orientation="Horizontal">
-            <Label Content="По уровням" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
+        <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="По уровням" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
                 <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню" Margin="5" ItemsSource="{Binding Levels}" SelectedValue="{Binding SelectedLevel}"/>
                 <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="По дате" Command="{Binding SortLevelsCommand}" Margin="5"/>
             </StackPanel>
-        <DataGrid ItemsSource="{Binding TransitionToTheLevels}" />
-    </StackPanel>
-
+            <DataGrid ItemsSource="{Binding TransitionToTheLevels}" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="English Level" Binding="{Binding LevelNew, Converter={converters:EnglishLevelConverter}}"/>
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
 
     </Grid>
 </Window>

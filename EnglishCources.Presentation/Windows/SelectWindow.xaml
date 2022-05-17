@@ -6,9 +6,13 @@
         xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
         mc:Ignorable="d"
         Title="SelectWindow" Height="149" Width="204">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="conv"/>
+    </Window.Resources>
+    
     <Grid>
-        <Button Name="Delete" Visibility="{Binding DeleteVisible}" Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="132,85,0,0" VerticalAlignment="Top" FontSize="16" Width="62"/>
-        <Button Name ="Update" Visibility="{Binding UpdateVisible}" Content="Update" Command="{Binding UpdateCommand}" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" FontSize="16" Width="62"/>
+        <Button Name="Delete" Visibility="{Binding DeleteVisible, Converter={StaticResource conv}}" Content="Delete" Command="{Binding DeleteCommand}" HorizontalAlignment="Left" Margin="132,85,0,0" VerticalAlignment="Top" FontSize="16" Width="62"/>
+        <Button Name ="Update" Visibility="{Binding UpdateVisible, Converter={StaticResource conv}}" Content="Update" Command="{Binding UpdateCommand}" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" FontSize="16" Width="62"/>
 
         <TextBox  HorizontalAlignment="Left" Margin="41,43,0,0" TextWrapping="Wrap" Text="{Binding EntityId}" VerticalAlignment="Top" Width="120" FontSize="16" PreviewTextInput="TextBox_PreviewTextInput"/>
         <Label Content="Введите Id объекта" HorizontalAlignment="Left" Margin="0,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.449,0.373"/>

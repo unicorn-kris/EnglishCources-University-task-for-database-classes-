@@ -95,7 +95,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         teachers.Add(new Teacher()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),
@@ -126,7 +126,7 @@ namespace EnglishCources.Repository.Implements
                 {
                     while (reader.Read())
                     {
-                        teacher.ID = reader.GetInt32("Id");
+                        teacher.Id = reader.GetInt32("Id");
                         teacher.Name = reader.GetString("Name");
                         teacher.Surname = reader.GetString("Surname");
                         teacher.Age = reader.GetInt32("Age");
@@ -156,7 +156,7 @@ namespace EnglishCources.Repository.Implements
                     {
                         teachers.Add(new Teacher()
                         {
-                            ID = reader.GetInt32("Id"),
+                            Id = reader.GetInt32("Id"),
                             Name = reader.GetString("Name"),
                             Surname = reader.GetString("Surname"),
                             Age = reader.GetInt32("Age"),

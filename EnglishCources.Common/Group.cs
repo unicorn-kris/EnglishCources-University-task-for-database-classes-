@@ -10,7 +10,7 @@
 
         private Teacher _teacher;
 
-        public int ID
+        public int Id
         {
             get => _id;
             set => OnPropertyChanged(value, ref _id);

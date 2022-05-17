@@ -6,21 +6,21 @@ ALTER TABLE Lessons
 ADD Constraint FK_Exams_Groups Foreign KEY (Group_Number) REFERENCES Groups(Id)
 GO
 
-CREATE PROCEDURE SelectAllBooks
+ALTER PROCEDURE SelectAllBooks
 AS
 BEGIN
 	SELECT Id, Author, Title
 	FROM Books
 
 	SELECT e.Id AS Id, e.Number AS Number, e.Letter AS Letter, b.Id AS BookId
-	FROM Books_EnglishLevels AS be
+	FROM Books AS b
+	LEFT JOIN Books_EnglishLevels AS be ON be.Book = b.Id
 	LEFT JOIN EnglishLevel AS e ON be.EnglishLevel = e.Id
-	LEFT JOIN Books AS b ON be.Book = b.Id
 	WHERE e.IsDelete = 0
 END
 GO
 
-CREATE PROCEDURE SelectBookById
+ALTER PROCEDURE SelectBookById
 @Id int
 AS
 BEGIN
@@ -28,9 +28,9 @@ BEGIN
 	FROM Books WHERE Id = @Id
 
 	SELECT e.Id AS Id, e.Number AS Number, e.Letter AS Letter, b.Id AS BookId
-	FROM Books_EnglishLevels AS be
+	FROM Books AS b
+	LEFT JOIN Books_EnglishLevels AS be ON be.Book = b.Id
 	LEFT JOIN EnglishLevel AS e ON be.EnglishLevel = e.Id
-	LEFT JOIN Books AS b ON be.Book = b.Id
 	WHERE e.IsDelete = 0 AND b.Id = @Id
 END
 GO
@@ -558,7 +558,7 @@ BEGIN
 	SELECT Id, Date
 	FROM TransitionToTheLevel 
 
-	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, l.Id AS TransitionId
+	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, t.Id AS TransitionId
 	FROM TransitionToTheLevel AS t
 	LEFT JOIN EnglishLevel AS l ON t.Level_New = l.Id
 
@@ -575,7 +575,7 @@ BEGIN
 	SELECT Id, Date
 	FROM TransitionToTheLevel WHERE Id = @Id
 
-	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, l.Id AS TransitionId
+	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, t.Id AS TransitionId
 	FROM TransitionToTheLevel AS t
 	LEFT JOIN EnglishLevel AS l ON t.Level_New = l.Id
 	WHERE t.Id = @Id
@@ -594,7 +594,7 @@ BEGIN
 	SELECT Id, Date
 	FROM TransitionToTheLevel WHERE Level_New = @LevelId
 
-	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, l.Id AS TransitionId
+	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, t.Id AS TransitionId
 	FROM TransitionToTheLevel AS t
 	LEFT JOIN EnglishLevel AS l ON @LevelId = l.Id
 	
@@ -613,7 +613,7 @@ BEGIN
 	FROM TransitionToTheLevel 
 	ORDER BY Date
 
-	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, l.Id AS TransitionId
+	SELECT l.Id AS LevelId, l.Number AS Number, l.letter AS Letter, t.Id AS TransitionId
 	FROM TransitionToTheLevel AS t
 	LEFT JOIN EnglishLevel AS l ON t.Level_New = l.Id
 	

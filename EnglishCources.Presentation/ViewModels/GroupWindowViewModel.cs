@@ -3,6 +3,7 @@ using EnglishCources.Logic.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -57,12 +58,13 @@ namespace EnglishCources.Presentation.ViewModels
             {
                 Group group = _groupLogic.GetById(entityId);
 
-                Teacher = group.Teacher;
-                EnglishLevel = group.MinLevel;
                 Number = group.Number;
 
                 Teachers = new ObservableCollection<Teacher>(teacherLogic.GetAll());
                 EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
+                
+                EnglishLevel = EnglishLevels.Single(x => x.Id == group.MinLevel.Id);
+                Teacher = Teachers.Single(x => x.Id == group.Teacher.Id);
             }
             catch (Exception e)
             {

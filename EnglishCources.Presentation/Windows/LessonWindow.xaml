@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:EnglishCources.Presentation.Converters"
         xmlns:local="clr-namespace:EnglishCources.Presentation.Windows"
         mc:Ignorable="d"
         Title="LessonWindow" Height="272" Width="328">
@@ -17,17 +18,28 @@
                 </TransformGroup>
             </Grid.RenderTransform>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="71*"/>
-                <ColumnDefinition Width="29*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Content="Hour" HorizontalAlignment="Left"  Margin="21,153,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <TextBox x:Name="Hour" Text ="{Binding Hour}" HorizontalAlignment="Left" Margin="91,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40" PreviewTextInput="Hour_PreviewTextInput" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="Hour" Text ="{Binding Hour}" HorizontalAlignment="Left" Margin="91,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="172" Height="40" PreviewTextInput="Hour_PreviewTextInput" />
 
             <Button Content="Save" CommandParameter="{Binding ., RelativeSource={RelativeSource AncestorType=Window}}" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="131,207,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.54,0.47" FontSize="20" Width="70"/>
             <Label Content="Group" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Groups}" SelectedValue="{Binding Group}" Margin="109,13,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+            <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding Groups}" SelectedValue="{Binding Group}" Margin="109,13,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Converter={converters:BookConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Label Content="Book" HorizontalAlignment="Left" Margin="27,55,0,0" VerticalAlignment="Top" FontSize="14"/>
-            <ComboBox Grid.ColumnSpan="2" ItemsSource="{Binding Books}" SelectedValue="{Binding Book}" HorizontalAlignment="Left" Margin="109,58,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox Grid.ColumnSpan="2" ItemsSource="{Binding Books}" SelectedValue="{Binding Book}" HorizontalAlignment="Left" Margin="109,58,0,0" VerticalAlignment="Top" Width="120">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ., Converter={converters:BookConverter}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <DatePicker HorizontalAlignment="Left" SelectedDate="{Binding Day}" Margin="116,101,0,0" VerticalAlignment="Top"/>
 
         </Grid>

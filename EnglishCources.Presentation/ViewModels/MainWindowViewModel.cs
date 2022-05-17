@@ -31,6 +31,12 @@ namespace EnglishCources.Presentation.ViewModels
         private IExamResultsLogic _examResultsLogic;
 
         private IStudentLogic _studentLogic;
+
+        private Group _groupStudent;
+
+        private EnglishLevel _levelStudent;
+
+        private EnglishLevel _levelGroups;
         #endregion
 
         public MainWindowViewModel(IStudentLogic studentLogic,
@@ -52,6 +58,10 @@ namespace EnglishCources.Presentation.ViewModels
             ExamResults = new ObservableCollection<ExamResults>(examResultsLogic.GetAll());
             Groups = new ObservableCollection<Group>(groupLogic.GetAll());
             EnglishLevels = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
+
+            GroupsStudent = new ObservableCollection<Group>(groupLogic.GetAll());
+            LevelsGroups = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
+            LevelsStudent = new ObservableCollection<EnglishLevel>(englishLevelLogic.GetAll());
 
             AddBookCommand = new RelayCommand(AddBook);
             AddEnglishLevelCommand = new RelayCommand(AddEnglishLevel);
@@ -84,6 +94,8 @@ namespace EnglishCources.Presentation.ViewModels
 
             AdminCommand = new RelayCommand(Admin);
 
+            ReturnCommand = new RelayCommand(Return);
+
             SortTeachersForExperienceCommand = new RelayCommand(SortTeachersForExperience);
 
             _bookLogic = bookLogic;
@@ -99,7 +111,82 @@ namespace EnglishCources.Presentation.ViewModels
             _transitionToTheLevelLogic = transitionToTheLevelLogic;
         }
 
+        #region props
+
+        public Group GroupStudent
+        {
+            get => _groupStudent;
+
+            set
+            {
+                OnPropertyChanged(value, ref _groupStudent);
+
+                var studs = _studentLogic.GetStudentsByGroup(GroupStudent.Id);
+
+                if (studs != null)
+                {
+                    Students.Clear();
+                    Students.AddRange(studs);
+                }
+                else
+                {
+                    MessageBox.Show("No entities", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public EnglishLevel LevelStudent
+        {
+            get => _levelStudent;
+
+            set
+            {
+                OnPropertyChanged(value, ref _levelStudent);
+
+                var studs = _studentLogic.GetStudentsByLevel(LevelStudent.Id);
+
+                if (studs != null)
+                {
+                    Students.Clear();
+                    Students.AddRange(studs);
+                }
+                else
+                {
+                    MessageBox.Show("No entities", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public EnglishLevel LevelGroups
+        {
+            get => _levelGroups;
+
+            set
+            {
+                OnPropertyChanged(value, ref _levelGroups);
+
+                var studs = _groupLogic.GetGroupsByLevel(LevelGroups.Id);
+
+                if (studs != null)
+                {
+                    Groups.Clear();
+                    Groups.AddRange(studs);
+                }
+                else
+                {
+                    MessageBox.Show("No entities", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        #endregion
+
         #region collections
+        public ObservableCollection<Group> GroupsStudent { get; set; }
+
+        public ObservableCollection<EnglishLevel> LevelsStudent { get; set; }
+
+        public ObservableCollection<EnglishLevel> LevelsGroups { get; set; }
 
         public ObservableCollection<Teacher> Teachers { get; set; }
 
@@ -118,8 +205,11 @@ namespace EnglishCources.Presentation.ViewModels
         #endregion
 
         #region commands
+        
+        public ICommand ReturnCommand { get; }
 
         public ICommand AdminCommand { get; }
+
         public ICommand AddBookCommand { get; }
 
         public ICommand AddEnglishLevelCommand { get; }
@@ -563,7 +653,30 @@ namespace EnglishCources.Presentation.ViewModels
 
             IsAdmin = vm.IsAdmin;
         }
+
+        private void Return(object? obj)
+        {
+            ExamResults.Clear();
+            ExamResults.AddRange(_examResultsLogic.GetAll());
+
+            Teachers.Clear();
+            Teachers.AddRange(_teacherLogic.GetAll());
+
+            Students.Clear();
+            Students.AddRange(_studentLogic.GetAll());
+
+            Lessons.Clear();
+            Lessons.AddRange(_lessonLogic.GetAll());
+
+            Groups.Clear();
+            Groups.AddRange(_groupLogic.GetAll());
+
+            Exams.Clear();
+            Exams.AddRange(_examLogic.GetAll());
+        }
+
     }
+
 
     internal static class ObservableHelp
     {

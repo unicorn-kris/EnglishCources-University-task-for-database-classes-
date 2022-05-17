@@ -61,6 +61,9 @@
             <MenuItem Header="Transitions" Command="{Binding TransitionsCommand}"/>
 
             <MenuItem Header="Admin Mode" Command="{Binding AdminCommand}"/>
+            
+            <MenuItem Header="Обновить" Command="{Binding ReturnCommand}"/>
+
         </Menu>
 
         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="5">
@@ -74,7 +77,13 @@
         <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Группы" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню"/>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По уровню" ItemsSource="{Binding LevelsGroups}" SelectedValue="{Binding LevelGroups}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={converters:EnglishLevelConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
             <DataGrid ItemsSource="{Binding Groups}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
@@ -88,8 +97,21 @@
         <StackPanel Grid.Row="3" Grid.Column="0"  Margin="5">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Студенты" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="14"/>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Text="По уровню" Height="22"/>
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе"/>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Text="По уровню" Height="22" ItemsSource="{Binding LevelsStudent}" SelectedValue="{Binding LevelStudent}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={converters:EnglishLevelConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Text="По группе" ItemsSource="{Binding GroupsStudent}" SelectedValue="{Binding GroupStudent}" >
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ., Converter={converters:GroupConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
             </StackPanel>
             <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
